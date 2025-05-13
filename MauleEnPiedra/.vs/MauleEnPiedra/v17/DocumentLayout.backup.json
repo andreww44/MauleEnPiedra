@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\cartamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\cartamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\coleccioncartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\coleccioncartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|c:\\tsi\\mauleenpiedra-juan\\mauleenpiedra\\assets\\cartadata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\cartadata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CartaData.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\CartaData.cs",
+              "RelativeDocumentMoniker": "Assets\\CartaData.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\CartaData.cs",
+              "RelativeToolTip": "Assets\\CartaData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T02:51:51.708Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CartaManager.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\CartaManager.cs",
+              "RelativeDocumentMoniker": "Assets\\CartaManager.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\CartaManager.cs",
+              "RelativeToolTip": "Assets\\CartaManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T02:51:47.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ColeccionCartas.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\ColeccionCartas.cs",
+              "RelativeDocumentMoniker": "Assets\\ColeccionCartas.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\ColeccionCartas.cs",
+              "RelativeToolTip": "Assets\\ColeccionCartas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T02:51:22.6Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
