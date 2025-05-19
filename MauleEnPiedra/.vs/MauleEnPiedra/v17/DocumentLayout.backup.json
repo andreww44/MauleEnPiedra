@@ -3,16 +3,40 @@
   "WorkspaceRootPath": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\cartamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\cartamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|c:\\tsi\\mauleenpiedra-juan\\mauleenpiedra\\assets\\scripts\\cartamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cartamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\coleccioncartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\coleccioncartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\scripts\\cartaui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cartaui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|c:\\tsi\\mauleenpiedra-juan\\mauleenpiedra\\assets\\cartadata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\cartadata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\scripts\\mazomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mazomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\scripts\\cartazoom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cartazoom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\scripts\\cartaarrastre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cartaarrastre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\scripts\\cartaslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cartaslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|c:\\tsi\\mauleenpiedra-juan\\mauleenpiedra\\assets\\scripts\\gestordepetroglifo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gestordepetroglifo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\scripts\\cartadata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cartadata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\assets\\scripts\\coleccioncartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\coleccioncartas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,46 +46,122 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CartaData.cs",
-              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\CartaData.cs",
-              "RelativeDocumentMoniker": "Assets\\CartaData.cs",
-              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\CartaData.cs",
-              "RelativeToolTip": "Assets\\CartaData.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "GestorDePetroglifo.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\GestorDePetroglifo.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GestorDePetroglifo.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\GestorDePetroglifo.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GestorDePetroglifo.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwBUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T02:51:51.708Z",
+              "WhenOpened": "2025-05-19T06:50:35.686Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CartaSlot.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaSlot.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CartaSlot.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaSlot.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CartaSlot.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T04:48:37.929Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CartaArrastre.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaArrastre.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CartaArrastre.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaArrastre.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CartaArrastre.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowBMAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T04:46:58.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CartaZoom.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaZoom.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CartaZoom.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaZoom.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CartaZoom.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T04:30:55.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MazoManager.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\MazoManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MazoManager.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\MazoManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MazoManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T03:36:57.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CartaUI.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CartaUI.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaUI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CartaUI.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T03:33:38.465Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "CartaManager.cs",
-              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\CartaManager.cs",
-              "RelativeDocumentMoniker": "Assets\\CartaManager.cs",
-              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\CartaManager.cs",
-              "RelativeToolTip": "Assets\\CartaManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CartaManager.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CartaManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T02:51:47.473Z",
+              "WhenOpened": "2025-05-13T02:58:01.759Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
+              "Title": "CartaData.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CartaData.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\CartaData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CartaData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-13T02:58:01.081Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "ColeccionCartas.cs",
-              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\ColeccionCartas.cs",
-              "RelativeDocumentMoniker": "Assets\\ColeccionCartas.cs",
-              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\ColeccionCartas.cs",
-              "RelativeToolTip": "Assets\\ColeccionCartas.cs",
+              "DocumentMoniker": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\ColeccionCartas.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ColeccionCartas.cs",
+              "ToolTip": "C:\\TSI\\MauleEnPiedra-Juan\\MauleEnPiedra\\Assets\\Scripts\\ColeccionCartas.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ColeccionCartas.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T02:51:22.6Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-13T02:57:58.985Z"
             }
           ]
         }
