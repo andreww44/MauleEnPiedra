@@ -9,9 +9,9 @@ public class SCR_Player : MonoBehaviour
 {
 
     private List<SO_Cards> HandCards = new List<SO_Cards>();
-   
-    private bool endTurn = false;
-    [SerializeField] bool condicionSeCumple = false;
+
+    [SerializeField] bool readySetup = false;
+    [SerializeField] bool endTurn = false;
 
     void Start()
     {
@@ -19,10 +19,7 @@ public class SCR_Player : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            endTurn = true;
-        }
+        
     }
 
     public IEnumerator DoMulligan(Turn turn)
@@ -34,8 +31,8 @@ public class SCR_Player : MonoBehaviour
         
         Debug.Log(name + " está eligiendo cartas para cambiar...");
 
-        yield return new WaitUntil(() => condicionSeCumple); // Aquí puedes mostrar UI real
-        condicionSeCumple = false;
+        yield return new WaitUntil(() => readySetup); // Aquí puedes mostrar UI real
+        readySetup = false;
     }
 
     public bool IsEndTurn() { 
@@ -55,7 +52,12 @@ public class SCR_Player : MonoBehaviour
 
     public void CardsReady()
     {
-        condicionSeCumple = true;
+        readySetup = true;
+    }
+
+    public List<SO_Cards> GetHand()
+    {
+        return HandCards;
     }
     
 
