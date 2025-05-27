@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,6 +35,8 @@ public class SCR_Table : MonoBehaviour
 
     [SerializeField] private GameObject UICardsMulligan;
 
+    [SerializeField] private bool drawCard = false;
+
     private Turn currentTurn;
     private GameState currentGameState;
 
@@ -57,7 +60,10 @@ public class SCR_Table : MonoBehaviour
         {
             if (currentTurn == Turn.Player)
             {
+                
+                DrawCardTo(Turn.Player);
                 UnityEngine.Debug.Log("Juega el humano");
+
                 if (Player.IsEndTurn())
                 {
                     EndTurn();
@@ -65,8 +71,11 @@ public class SCR_Table : MonoBehaviour
             }
             else
             {
+
+                DrawCardTo(Turn.AI);
+
                 UnityEngine.Debug.Log("Juega la IA");
-                Ai.SetEndTurn(true);
+
                 if (Ai.IsEndTurn())
                 {
                     EndTurn();
@@ -76,9 +85,39 @@ public class SCR_Table : MonoBehaviour
         
     }
 
+    private void DrawCardTo(Turn turn)
+    {
+
+        int index = UnityEngine.Random.Range(0, DeckCard.Count);
+        bool fullHandPlayer = Scr_Rules.FullHand(Player.GetHand().Count);
+        bool fullHandAI = Scr_Rules.FullHand(Ai.GetHand().Count);
+
+
+
+        if (turn == Turn.Player) 
+        {
+            if (fullHandPlayer && drawCard == false)
+            {
+                Player.DrawCard(DeckCard[index]);
+                DeckCard.RemoveAt(index);
+            }
+        }
+        else 
+        {   
+            if (fullHandAI && drawCard == false)
+            {
+                Ai.DrawCard(DeckCard[index]);
+                DeckCard.RemoveAt(index);
+            }
+        }
+        drawCard = true;
+        
+    }
+
     private void EndTurn()
     {
         currentTurn = (currentTurn == Turn.Player) ? Turn.AI : Turn.Player;
+        drawCard = true;
         Ai.SetEndTurn(false);
         Player.SetEndTurn(false);
     }
@@ -86,7 +125,7 @@ public class SCR_Table : MonoBehaviour
     IEnumerator GameSetup()
     {
         //Paso 1: Sortear turno
-        currentTurn = (Turn)Random.Range(0, 2);
+        currentTurn = (Turn)UnityEngine.Random.Range(0, 2);
         UnityEngine.Debug.Log("El jugador que empieza es: " + currentTurn);
 
         //Paso 2: Dar cartas iniciales (ej. 3 para el que empieza, 4 para el otro)
@@ -94,13 +133,13 @@ public class SCR_Table : MonoBehaviour
         {
             int index = 0;
             for (int i = 0; i < 5; i++){
-                index = Random.Range(0, DeckCard.Count);
+                index = UnityEngine.Random.Range(0, DeckCard.Count);
                 Player.DrawCard(DeckCard[index]);
                 DeckCard.RemoveAt(index);
             }
             for (int i = 0; i < 5; i++)
             {
-                index = Random.Range(0, DeckCard.Count);
+                index = UnityEngine.Random.Range(0, DeckCard.Count);
                 Ai.DrawCard(DeckCard[index]);
                 DeckCard.RemoveAt(index);
             }
@@ -110,13 +149,13 @@ public class SCR_Table : MonoBehaviour
             int index = 0;
             for (int i = 0; i < 5; i++)
             {
-                index = Random.Range(0, DeckCard.Count);
+                index = UnityEngine.Random.Range(0, DeckCard.Count);
                 Ai.DrawCard(DeckCard[index]);
                 DeckCard.RemoveAt(index);
             }
             for (int i = 0; i < 5; i++)
             {
-                index = Random.Range(0, DeckCard.Count);
+                index = UnityEngine.Random.Range(0, DeckCard.Count);
                 Player.DrawCard(DeckCard[index]);
                 DeckCard.RemoveAt(index);
             }

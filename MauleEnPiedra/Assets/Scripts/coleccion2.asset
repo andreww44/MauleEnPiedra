@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c45c289e441f4b044b4b21860a3f2acf, type: 3}
-  m_Name: ProtectCard 3
+  m_Script: {fileID: 11500000, guid: 632a6c44a8f34be4bb5411a07921968a, type: 3}
+  m_Name: coleccion2
   m_EditorClassIdentifier: 
-  name: Protect3
-  type: 1
-  description: Carta-Protect - 3
-  region: 
-  part: 0
-  image: {fileID: 0}
+  cartas:
+  - {fileID: 11400000, guid: 60e957dbb5f7d554d8bf7c383d568d37, type: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Z1P1C1
   type: 0
-  description: 
-  region: 
-  part: 0
+  description: Descripcion carta
+  region: 1
+  part: 1
   image: {fileID: 0}

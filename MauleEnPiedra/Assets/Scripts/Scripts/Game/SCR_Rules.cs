@@ -10,4 +10,10 @@ public static class Scr_Rules
     {
 
     }
+
+    public static bool FullHand(int numberOfCards)
+    {
+        if(numberOfCards < 6){ return false; }
+        return true;
+    }
 }

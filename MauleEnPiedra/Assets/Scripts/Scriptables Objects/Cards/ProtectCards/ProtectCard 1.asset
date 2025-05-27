@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Protect1
   type: 1
-  description: CartaXd1
+  description: 'Carta-Protect - 1 '
   region: 
   part: 0
   image: {fileID: 0}
