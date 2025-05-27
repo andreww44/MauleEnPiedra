@@ -19,7 +19,49 @@ public class SCR_Player : MonoBehaviour
     }
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (PlayCard(0))
+            {
+                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (PlayCard(1))
+            {
+                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (PlayCard(2))
+            {
+                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (PlayCard(3))
+            {
+                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
+            };
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (PlayCard(4))
+            {
+                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            if (PlayCard(5))
+            {
+                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
+            }
+
+        }
     }
 
     public IEnumerator DoMulligan(Turn turn)
@@ -53,6 +95,13 @@ public class SCR_Player : MonoBehaviour
     public void CardsReady()
     {
         readySetup = true;
+    }
+
+    public bool PlayCard(int index)
+    {
+        if (index < 0 || index >= HandCards.Count) { return false; }
+        HandCards.RemoveAt(index);
+        return true;
     }
 
     public List<SO_Cards> GetHand()

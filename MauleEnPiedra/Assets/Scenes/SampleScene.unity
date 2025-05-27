@@ -618,13 +618,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 614117766}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 427f33b25d68ee543a379ff1195e741c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cartasDisponibles:
-  - {fileID: 11400000, guid: 60e957dbb5f7d554d8bf7c383d568d37, type: 2}
+  - {fileID: 11400000, guid: 380d006776dce1c4181031da9ded1863, type: 2}
   - {fileID: 11400000, guid: 0b3e5a8a3107c10418a1f7920aec8e94, type: 2}
   - {fileID: 11400000, guid: 12b8bfa64e4f92a4581d4b623085fc5e, type: 2}
   - {fileID: 11400000, guid: 57c94d30d4151a242bbd44b6e9440773, type: 2}
@@ -659,7 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156bf6f90b3ee6e49bff47098fe4f345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coleccion: {fileID: 11400000, guid: ea67168955803344db762172d2db8653, type: 2}
+  coleccion: {fileID: 11400000, guid: 17eec745c9b06cd41b498cbfcbf24e8f, type: 2}
   cartaPrefab: {fileID: 896415148368583818, guid: eb3f088f42a252e4cbf5de433624b4bd, type: 3}
   slots:
   - {fileID: 820630798}

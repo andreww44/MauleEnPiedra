@@ -87,27 +87,33 @@ public class SCR_Table : MonoBehaviour
 
     private void DrawCardTo(Turn turn)
     {
-
+        
         int index = UnityEngine.Random.Range(0, DeckCard.Count);
         bool fullHandPlayer = Scr_Rules.FullHand(Player.GetHand().Count);
         bool fullHandAI = Scr_Rules.FullHand(Ai.GetHand().Count);
 
-
-
         if (turn == Turn.Player) 
         {
-            if (fullHandPlayer && drawCard == false)
+            if (!fullHandPlayer && drawCard == false)
             {
                 Player.DrawCard(DeckCard[index]);
                 DeckCard.RemoveAt(index);
             }
+            else
+            {
+                UnityEngine.Debug.Log("Player no roba");
+            }
         }
-        else 
+        if(turn == Turn.AI) 
         {   
-            if (fullHandAI && drawCard == false)
+            if (!fullHandAI && drawCard == false)
             {
                 Ai.DrawCard(DeckCard[index]);
                 DeckCard.RemoveAt(index);
+            }
+            else
+            {
+                UnityEngine.Debug.Log("AI NO ROBA");
             }
         }
         drawCard = true;
@@ -117,7 +123,7 @@ public class SCR_Table : MonoBehaviour
     private void EndTurn()
     {
         currentTurn = (currentTurn == Turn.Player) ? Turn.AI : Turn.Player;
-        drawCard = true;
+        drawCard = false;
         Ai.SetEndTurn(false);
         Player.SetEndTurn(false);
     }
