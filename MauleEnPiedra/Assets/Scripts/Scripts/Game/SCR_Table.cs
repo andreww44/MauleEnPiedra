@@ -32,7 +32,8 @@ public class SCR_Table : MonoBehaviour
     [SerializeField] private List<SO_Cards> DeckCard;
     [SerializeField] private List<SO_Cards> _holeDeck = new List<SO_Cards>();
     [SerializeField] private List<int> indexCardUse = new List<int>();
-
+    [SerializeField] private CartaManager CardManager;
+ 
     [SerializeField] private GameObject UICardsMulligan;
 
     [SerializeField] private bool drawCard = false;
@@ -46,7 +47,6 @@ public class SCR_Table : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
         Player = _player.GetComponent<SCR_Player>();
         Ai = _ai.GetComponent<SCR_Player>();
         LoadCards();
@@ -61,7 +61,7 @@ public class SCR_Table : MonoBehaviour
             if (currentTurn == Turn.Player)
             {
                 
-                DrawCardTo(Turn.Player);
+                //DrawCardTo(Turn.Player);
                 UnityEngine.Debug.Log("Juega el humano");
 
                 if (Player.IsEndTurn())
@@ -72,7 +72,7 @@ public class SCR_Table : MonoBehaviour
             else
             {
 
-                DrawCardTo(Turn.AI);
+                //DrawCardTo(Turn.AI);
 
                 UnityEngine.Debug.Log("Juega la IA");
 
@@ -96,6 +96,7 @@ public class SCR_Table : MonoBehaviour
         {
             if (!fullHandPlayer && drawCard == false)
             {
+                StartCoroutine(CardManager.RepartirCartas(Player.GetHand().Count, DeckCard[index].image));
                 Player.DrawCard(DeckCard[index]);
                 DeckCard.RemoveAt(index);
             }
@@ -117,7 +118,19 @@ public class SCR_Table : MonoBehaviour
             }
         }
         drawCard = true;
-        
+    }
+
+    public void DrawSpecificCard(Turn turn, SO_Cards card)
+    {
+        if (turn == Turn.Player)
+        {
+            if (!Scr_Rules.FullHand(Player.GetHand().Count))
+            {
+                StartCoroutine(CardManager.RepartirCartas(Player.GetHand().Count, card.image));
+                Player.DrawCard(card);
+                DeckCard.Remove(card);
+            }
+        }
     }
 
     private void EndTurn()
@@ -134,20 +147,25 @@ public class SCR_Table : MonoBehaviour
         currentTurn = (Turn)UnityEngine.Random.Range(0, 2);
         UnityEngine.Debug.Log("El jugador que empieza es: " + currentTurn);
 
+        
+        // Esperar a que ambos hagan Mulligan
+        UICardsMulligan.SetActive(true);
+        yield return StartCoroutine(Player.DoMulligan(Turn.Player));
+        yield return StartCoroutine(Ai.DoMulligan(Turn.AI));
+        UICardsMulligan.SetActive(false);
+
         //Paso 2: Dar cartas iniciales (ej. 3 para el que empieza, 4 para el otro)
         if (currentTurn == Turn.Player)
         {
-            int index = 0;
-            for (int i = 0; i < 5; i++){
-                index = UnityEngine.Random.Range(0, DeckCard.Count);
-                Player.DrawCard(DeckCard[index]);
-                DeckCard.RemoveAt(index);
+            for (int i = 0; i < 5; i++)
+            {
+                DrawCardTo(Turn.Player);
+                drawCard = false;
             }
             for (int i = 0; i < 5; i++)
             {
-                index = UnityEngine.Random.Range(0, DeckCard.Count);
-                Ai.DrawCard(DeckCard[index]);
-                DeckCard.RemoveAt(index);
+                DrawCardTo(Turn.AI);
+                drawCard = false;
             }
         }
         else
@@ -155,22 +173,15 @@ public class SCR_Table : MonoBehaviour
             int index = 0;
             for (int i = 0; i < 5; i++)
             {
-                index = UnityEngine.Random.Range(0, DeckCard.Count);
-                Ai.DrawCard(DeckCard[index]);
-                DeckCard.RemoveAt(index);
+                DrawCardTo(Turn.AI);
+                drawCard = false;
             }
             for (int i = 0; i < 5; i++)
             {
-                index = UnityEngine.Random.Range(0, DeckCard.Count);
-                Player.DrawCard(DeckCard[index]);
-                DeckCard.RemoveAt(index);
+                DrawCardTo(Turn.Player);
+                drawCard = false;
             }
         }
-        // Esperar a que ambos hagan Mulligan
-        UICardsMulligan.SetActive(true);
-        yield return StartCoroutine(Player.DoMulligan(Turn.Player));
-        yield return StartCoroutine(Ai.DoMulligan(Turn.AI));
-        UICardsMulligan.SetActive(false);
         currentGameState = GameState.InGame;
         
     }

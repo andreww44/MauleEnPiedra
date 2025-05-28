@@ -12,6 +12,11 @@ public class SCR_Player : MonoBehaviour
 
     [SerializeField] bool readySetup = false;
     [SerializeField] bool endTurn = false;
+    
+    public bool IsReadySetup()
+    {
+        return readySetup;
+    }
 
     void Start()
     {
@@ -74,7 +79,7 @@ public class SCR_Player : MonoBehaviour
         Debug.Log(name + " está eligiendo cartas para cambiar...");
 
         yield return new WaitUntil(() => readySetup); // Aquí puedes mostrar UI real
-        readySetup = false;
+        //readySetup = false;
     }
 
     public bool IsEndTurn() { 
@@ -94,6 +99,7 @@ public class SCR_Player : MonoBehaviour
 
     public void CardsReady()
     {
+
         readySetup = true;
     }
 
@@ -108,6 +114,8 @@ public class SCR_Player : MonoBehaviour
     {
         return HandCards;
     }
+
+
     
 
 }

@@ -14,7 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: SpecialCard1
   type: 2
-  description: 
-  region: 
-  part: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 5af351111130b664e9b5f38851dedcd4, type: 3}

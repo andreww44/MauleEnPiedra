@@ -3,11 +3,13 @@ using UnityEngine.EventSystems;
 
 public class CartaSlot : MonoBehaviour, IDropHandler
 {
-    public bool ocupado = false;
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (ocupado) return;
+        if(transform.childCount > 0)
+        {
+            return;
+        }
 
         GameObject dropped = eventData.pointerDrag;
 
@@ -22,8 +24,9 @@ public class CartaSlot : MonoBehaviour, IDropHandler
                 dropped.transform.SetParent(this.transform);
                 dropped.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
-                ocupado = true;
             }
         }
     }
+
+    
 }

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CartaManager : MonoBehaviour
 {
-    public ColeccionCartasSO coleccion;
+    public SO_DeckCard coleccion;
     public GameObject cartaPrefab;
     public Transform[] slots;
     public RectTransform Reparto; 
@@ -12,40 +13,31 @@ public class CartaManager : MonoBehaviour
     public float tiempoEntreCartas = 0.3f;
     public float duracionMovimiento = 0.4f;
 
+
+
     void Start()
     {
-        if (coleccion != null && cartaPrefab != null && slots != null && Reparto != null)
-        {
-            StartCoroutine(RepartirCartas());
-        }
     }
 
-    IEnumerator RepartirCartas()
+    public IEnumerator RepartirCartas(int index, Sprite cardimage)
     {
-        int cantidadCartas = coleccion.cartas.Count();
+        
+        UnityEngine.Debug.Log("$<color=yellow>"+ index + "</color>");
+
+        int cantidadCartas = coleccion.petroglyphsCards.Count();
         int cantidadSlots = slots.Length;
         int maxSlots = Mathf.Min(6, Mathf.Min(cantidadCartas, cantidadSlots));
+        
+        GameObject cartaGO = Instantiate(cartaPrefab, Reparto);
+        RectTransform cartaRT = cartaGO.GetComponent<RectTransform>();
+        cartaRT.localPosition = Vector3.zero;
 
-        for (int i = 0; i < maxSlots; i++)
-        {
-            GameObject cartaGO = Instantiate(cartaPrefab, Reparto);
-            RectTransform cartaRT = cartaGO.GetComponent<RectTransform>();
-            cartaRT.localPosition = Vector3.zero;
+        yield return new WaitForSeconds(tiempoEntreCartas);
+        Transform destino = slots[index];
+        yield return StartCoroutine(Suavizado(cartaRT, destino));
+        yield return new WaitForSeconds(tiempoEntreCartas);
 
-            CartaUI cartaUI = cartaGO.GetComponent<CartaUI>();
-            if (cartaUI != null)
-            {
-                cartaUI.MostrarCarta(coleccion.cartas[i]);
-            }
-
-            yield return new WaitForSeconds(tiempoEntreCartas);
-
-            Transform destino = slots[i];
-
-            yield return StartCoroutine(Suavizado(cartaRT, destino));
-
-            yield return new WaitForSeconds(tiempoEntreCartas);
-        }
+        cartaGO.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = cardimage;
     }
 
     IEnumerator Suavizado(RectTransform carta, Transform destino)
