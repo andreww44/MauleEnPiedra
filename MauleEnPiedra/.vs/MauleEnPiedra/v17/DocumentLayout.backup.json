@@ -1,33 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\",
+  "WorkspaceRootPath": "C:\\Users\\Das\\Documents\\GitHub\\MauleEnPiedra\\MauleEnPiedra\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|d:\\mep\\mauleenpiedra\\mauleenpiedra\\assets\\scripts\\scripts\\game\\scr_table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scripts\\game\\scr_table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\enum\\typecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enum\\typecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\scripts\\game\\scr_rules.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scripts\\game\\scr_rules.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\scriptables objects\\so_deckcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scriptables objects\\so_deckcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\scriptables objects\\so_cards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scriptables objects\\so_cards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\scripts\\player\\scr_player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scripts\\player\\scr_player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\scripts\\ui\\scr_uiprotectcards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|c:\\users\\das\\documents\\github\\mauleenpiedra\\mauleenpiedra\\assets\\scripts\\scripts\\ui\\scr_uiprotectcards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scripts\\ui\\scr_uiprotectcards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -38,97 +14,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SCR_UIProtectCards.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T00:18:34.408Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SCR_Player.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T19:43:44.301Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SCR_Table.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Game\\SCR_Table.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\Game\\SCR_Table.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Game\\SCR_Table.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Scripts\\Game\\SCR_Table.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAUwBQAAAABAAAAAAAAAA==",
+              "Title": "SCR_UIProtectCards.cs",
+              "DocumentMoniker": "C:\\Users\\Das\\Documents\\GitHub\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
+              "ToolTip": "C:\\Users\\Das\\Documents\\GitHub\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T19:37:50.15Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TypeCard.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Enum\\TypeCard.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enum\\TypeCard.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Enum\\TypeCard.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enum\\TypeCard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T20:01:21.206Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SCR_Rules.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Game\\SCR_Rules.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\Game\\SCR_Rules.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Game\\SCR_Rules.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Scripts\\Game\\SCR_Rules.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T19:05:04.264Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SO_DeckCard.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scriptables Objects\\SO_DeckCard.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Scriptables Objects\\SO_DeckCard.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scriptables Objects\\SO_DeckCard.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Scriptables Objects\\SO_DeckCard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T19:47:14.385Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SO_Cards.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scriptables Objects\\SO_Cards.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Scriptables Objects\\SO_Cards.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scriptables Objects\\SO_Cards.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Scriptables Objects\\SO_Cards.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T03:51:04.415Z",
+              "WhenOpened": "2025-05-18T22:51:57.162Z",
               "EditorCaption": ""
             }
           ]

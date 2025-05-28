@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Das\\Documents\\GitHub\\MauleEnPiedra\\MauleEnPiedra\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|c:\\users\\das\\documents\\github\\mauleenpiedra\\mauleenpiedra\\assets\\scripts\\cartaui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cartaui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|c:\\users\\das\\documents\\github\\mauleenpiedra\\mauleenpiedra\\assets\\scripts\\scripts\\ui\\scr_uiprotectcards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scripts\\ui\\scr_uiprotectcards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -19,6 +23,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CartaUI.cs",
+              "DocumentMoniker": "C:\\Users\\Das\\Documents\\GitHub\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\CartaUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CartaUI.cs",
+              "ToolTip": "C:\\Users\\Das\\Documents\\GitHub\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\CartaUI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CartaUI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-27T22:35:30.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "SCR_UIProtectCards.cs",
               "DocumentMoniker": "C:\\Users\\Das\\Documents\\GitHub\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\UI\\SCR_UIProtectCards.cs",
