@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 //La logica que guarda por debajo el player para jugar, guarda una mano de cartas, etc.
@@ -8,8 +9,9 @@ using UnityEngine;
 public class SCR_Player : MonoBehaviour
 {
 
-    private List<SO_Cards> HandCards = new List<SO_Cards>();
-
+    [SerializeField] private List<SO_Cards> HandCards = new List<SO_Cards>();
+    [SerializeField] private List<SO_Cards> SpecialCards = new List<SO_Cards>();
+    [SerializeField] private List<SO_Cards> GroupCards = new List<SO_Cards>();
     [SerializeField] bool readySetup = false;
     [SerializeField] bool endTurn = false;
     
@@ -20,53 +22,48 @@ public class SCR_Player : MonoBehaviour
 
     void Start()
     {
-
     }
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (PlayCard(0))
-            {
-                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
-            }
+            PlayCardToPet(0);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (PlayCard(1))
-            {
-                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (PlayCard(2))
-            {
-                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
-            }
+            PlayCardToPet(1);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (PlayCard(3))
-            {
-                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
-            };
+            PlayCardToPet(2);
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if (PlayCard(4))
-            {
-                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
-            }
+            PlayCardToPet(3);
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            if (PlayCard(5))
-            {
-                UnityEngine.Debug.Log("<color=red>¡Carta Retirada!</color>");
-            }
-
+            PlayCardToPet(4);
         }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            PlayCardToPet(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            PlayPetToHand(0);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            PlayPetToHand(1);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            PlayPetToHand(2);
+        }
+
     }
 
     public IEnumerator DoMulligan(Turn turn)
@@ -103,19 +100,80 @@ public class SCR_Player : MonoBehaviour
         readySetup = true;
     }
 
-    public bool PlayCard(int index)
-    {
-        if (index < 0 || index >= HandCards.Count) { return false; }
-        HandCards.RemoveAt(index);
-        return true;
-    }
 
     public List<SO_Cards> GetHand()
     {
         return HandCards;
     }
 
+    private void PlayCardToPet(int indexcard)
+    {
+        if (indexcard < 0 || indexcard >= HandCards.Count)
+            return;
+
+        if(GroupCards.Count >= 3)
+        {
+            return;
+        }
+        var card = HandCards[indexcard];
+
+        if (card != null && card.type == Card.Petroglyph)
+        {
+            int insertIndex = -1;
+            for (int i = 0; i < GroupCards.Count; i++)
+            {
+                if (GroupCards[i] == null)
+                {
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            if (insertIndex == -1)
+            {
+                insertIndex = GroupCards.Count;
+                GroupCards.Add(null); // Expandimos lista si no hay espacio
+            }
+
+            StartCoroutine(CartaManager.Instance.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Group));
+            GroupCards[insertIndex] = card;
+            HandCards[indexcard] = null;
+        }
+    }
+
+    private void PlayPetToHand(int indexcard)
+    {
+        if (indexcard < 0 || indexcard >= GroupCards.Count)
+            return;
+       
+        var card = GroupCards[indexcard];
+
+        if (card != null && card.type == Card.Petroglyph)
+        {
+            int insertIndex = -1;
+            for (int i = 0; i < HandCards.Count; i++)
+            {
+                if (HandCards[i] == null)
+                {
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            if (insertIndex == -1)
+            {
+                insertIndex = HandCards.Count;
+                HandCards.Add(null); // Expandimos lista si no hay espacio
+            }
+
+            StartCoroutine(CartaManager.Instance.MoveCard(indexcard, insertIndex, card, CardZone.Group, CardZone.Hand));
+            HandCards[insertIndex] = card;
+            GroupCards[indexcard] = null;
+        }
+    }
 
     
+
+
 
 }

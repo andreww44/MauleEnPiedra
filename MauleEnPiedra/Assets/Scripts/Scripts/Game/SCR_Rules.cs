@@ -16,4 +16,9 @@ public static class Scr_Rules
         if(numberOfCards < 6){ return false; }
         return true;
     }
+
+    public static bool PetroComplete()
+    {
+        return false;
+    }
 }

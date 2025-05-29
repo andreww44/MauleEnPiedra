@@ -4,6 +4,9 @@ using UnityEngine.EventSystems;
 public class CartaSlot : MonoBehaviour, IDropHandler
 {
 
+    //sprivate GameObject card;
+    [SerializeField] private SO_Cards cardData;
+
     public void OnDrop(PointerEventData eventData)
     {
         if(transform.childCount > 0)
@@ -26,6 +29,24 @@ public class CartaSlot : MonoBehaviour, IDropHandler
 
             }
         }
+    }
+
+    public void Update()
+    {
+        if (transform.childCount == 0)
+        {
+            RetireCard();
+        }
+    }
+
+    public void setSoCard(SO_Cards card)
+    {
+        cardData = card;
+    }
+
+    public void RetireCard()
+    {
+        cardData = null;
     }
 
     
