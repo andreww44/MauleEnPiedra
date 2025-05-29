@@ -23,7 +23,7 @@ public class CartaManager : MonoBehaviour
     //Slots Specials
     public Transform[] slotsSpecial;
 
-    public float tiempoEntreCartas = 0.3f;
+    public float tiempoEntreCartas = 0.4f;
     public float duracionMovimiento = 0.4f;
 
     public static CartaManager Instance;
@@ -51,6 +51,11 @@ public class CartaManager : MonoBehaviour
         Transform[] fromSlots = GetSlotsByZone(fromZone);
         Transform[] toSlots = GetSlotsByZone(toZone);
 
+        if (fromSlots[fromIndex].childCount > 0)
+        {
+            Destroy(fromSlots[fromIndex].GetChild(0).gameObject);
+        } 
+
         GameObject cartaGO = Instantiate(cartaPrefab, fromSlots[fromIndex]);
         RectTransform cartaRT = cartaGO.GetComponent<RectTransform>();
         cartaRT.localPosition = Vector3.zero;
@@ -59,15 +64,14 @@ public class CartaManager : MonoBehaviour
 
         Transform destino = toSlots[toIndex];
         yield return StartCoroutine(Suavizado(cartaRT, destino));
+        cartaGO.transform.GetChild(0).GetComponent<Image>().sprite = card.image;
+        destino.GetComponent<CartaSlot>().setSoCard(card);
         yield return new WaitForSeconds(tiempoEntreCartas);
 
-        destino.GetComponent<CartaSlot>().setSoCard(card);
-        cartaGO.transform.GetChild(0).GetComponent<Image>().sprite = card.image;
+        
+        
 
-        if (fromSlots[fromIndex].childCount > 0)
-        {
-            Destroy(fromSlots[fromIndex].GetChild(0).gameObject);
-        }
+        
     }
 
     private Transform[] GetSlotsByZone(CardZone zone)

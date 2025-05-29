@@ -25,30 +25,30 @@ public class SCR_Player : MonoBehaviour
     }
     void Update()
     {
-
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            PlayCardToPet(0);
+            PlayCardToFromHand(0);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            PlayCardToPet(1);
+            PlayCardToFromHand(1);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PlayCardToFromHand(2);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            PlayCardToPet(2);
+            PlayCardToFromHand(3);
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            PlayCardToPet(3);
+            PlayCardToFromHand(4);
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            PlayCardToPet(4);
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            PlayCardToPet(5);
+            PlayCardToFromHand(5);
         }
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -62,6 +62,15 @@ public class SCR_Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             PlayPetToHand(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            PlaySpeToHand(0);
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            PlaySpeToHand(1);
         }
 
     }
@@ -106,19 +115,19 @@ public class SCR_Player : MonoBehaviour
         return HandCards;
     }
 
-    private void PlayCardToPet(int indexcard)
+    private void PlayCardToFromHand(int indexcard)
     {
         if (indexcard < 0 || indexcard >= HandCards.Count)
             return;
 
-        if(GroupCards.Count >= 3)
-        {
-            return;
-        }
         var card = HandCards[indexcard];
 
-        if (card != null && card.type == Card.Petroglyph)
+        if (card == null)
+            return;
+
+        if (card.type == Card.Petroglyph)
         {
+
             int insertIndex = -1;
             for (int i = 0; i < GroupCards.Count; i++)
             {
@@ -132,14 +141,37 @@ public class SCR_Player : MonoBehaviour
             if (insertIndex == -1)
             {
                 insertIndex = GroupCards.Count;
-                GroupCards.Add(null); // Expandimos lista si no hay espacio
+                GroupCards.Add(null);
             }
 
             StartCoroutine(CartaManager.Instance.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Group));
             GroupCards[insertIndex] = card;
-            HandCards[indexcard] = null;
         }
+        else
+        {
+            int insertIndex = -1;
+            for (int i = 0; i < SpecialCards.Count; i++)
+            {
+                if (SpecialCards[i] == null)
+                {
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            if (insertIndex == -1)
+            {
+                insertIndex = SpecialCards.Count;
+                SpecialCards.Add(null);
+            }
+
+            StartCoroutine(CartaManager.Instance.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Special));
+            SpecialCards[insertIndex] = card;
+        }
+
+        HandCards[indexcard] = null;
     }
+
 
     private void PlayPetToHand(int indexcard)
     {
@@ -172,7 +204,38 @@ public class SCR_Player : MonoBehaviour
         }
     }
 
-    
+    private void PlaySpeToHand(int indexcard)
+    {
+        if (indexcard < 0 || indexcard >= SpecialCards.Count)
+            return;
+
+        var card = SpecialCards[indexcard];
+
+        if (card != null && card.type != Card.Petroglyph)
+        {
+            int insertIndex = -1;
+            for (int i = 0; i < HandCards.Count; i++)
+            {
+                if (HandCards[i] == null)
+                {
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            if (insertIndex == -1)
+            {
+                insertIndex = HandCards.Count;
+                HandCards.Add(null); // Expandimos lista si no hay espacio
+            }
+
+            StartCoroutine(CartaManager.Instance.MoveCard(indexcard, insertIndex, card, CardZone.Special, CardZone.Hand));
+            HandCards[insertIndex] = card;
+            SpecialCards[indexcard] = null;
+        }
+    }
+
+
 
 
 
