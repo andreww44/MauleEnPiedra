@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,36 +8,24 @@ public enum CardZone
     Hand,
     Group,
     Special,
-    Maze
+    Maze,
+    HoleMaze,
 }
 
 public class CartaManager : MonoBehaviour
 {
-    public SO_DeckCard coleccion;
     public GameObject cartaPrefab;
     public Transform[] slots;
     public Transform[] reparto;
-
-    //Slots Petrogliphs
+    public Transform[] holemaze;
     public Transform[] slotsPetro;
-    //Slots Specials
     public Transform[] slotsSpecial;
 
     public float tiempoEntreCartas = 0.4f;
     public float duracionMovimiento = 0.4f;
 
-    public static CartaManager Instance;
-
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(Instance);
-        }
     }
     void Start()
     {
@@ -53,8 +41,8 @@ public class CartaManager : MonoBehaviour
 
         if (fromSlots[fromIndex].childCount > 0)
         {
-            Destroy(fromSlots[fromIndex].GetChild(0).gameObject);
-        } 
+            //Destroy(fromSlots[fromIndex].GetChild(0).gameObject);
+        }
 
         GameObject cartaGO = Instantiate(cartaPrefab, fromSlots[fromIndex]);
         RectTransform cartaRT = cartaGO.GetComponent<RectTransform>();
@@ -64,14 +52,20 @@ public class CartaManager : MonoBehaviour
 
         Transform destino = toSlots[toIndex];
         yield return StartCoroutine(Suavizado(cartaRT, destino));
-        cartaGO.transform.GetChild(0).GetComponent<Image>().sprite = card.image;
+        
         destino.GetComponent<CartaSlot>().setSoCard(card);
         yield return new WaitForSeconds(tiempoEntreCartas);
 
-        
-        
+        if (cartaGO.transform.childCount > 0)
+        {
+            cartaGO.transform.GetChild(0).GetComponent<Image>().sprite = card.image;
+        }
 
-        
+        if (fromSlots[fromIndex].childCount > 0)
+        {
+            
+            Destroy(fromSlots[fromIndex].GetChild(0).gameObject);
+        }
     }
 
     private Transform[] GetSlotsByZone(CardZone zone)
@@ -82,6 +76,7 @@ public class CartaManager : MonoBehaviour
             case CardZone.Group: return slotsPetro;
             case CardZone.Special: return slotsSpecial;
             case CardZone.Maze: return reparto;
+            case CardZone.HoleMaze: return holemaze;
             default: return null;
         }
     }

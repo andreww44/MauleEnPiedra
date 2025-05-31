@@ -1,34 +1,18 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class CartaSlot : MonoBehaviour, IDropHandler
+
+public class CartaSlot : MonoBehaviour
 {
 
     //sprivate GameObject card;
     [SerializeField] private SO_Cards cardData;
+    private Button myButton;
 
-    public void OnDrop(PointerEventData eventData)
+    void Start()
     {
-        if(transform.childCount > 0)
-        {
-            return;
-        }
-
-        GameObject dropped = eventData.pointerDrag;
-
-        if (dropped != null)
-        {
-            CartaArrastre cartaArrastre = dropped.GetComponent<CartaArrastre>();
-
-            if (cartaArrastre != null)
-            {
-                cartaArrastre.parentToReturnTo = this.transform;
-
-                dropped.transform.SetParent(this.transform);
-                dropped.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-
-            }
-        }
+        myButton = GetComponent<Button>();
     }
 
     public void Update()
@@ -36,6 +20,16 @@ public class CartaSlot : MonoBehaviour, IDropHandler
         if (transform.childCount == 0)
         {
             RetireCard();
+        }
+
+        if (gameObject.transform.childCount > 0)
+        {
+            myButton.interactable = true;
+
+        }
+        else
+        {
+            myButton.interactable = false;
         }
     }
 
@@ -47,7 +41,8 @@ public class CartaSlot : MonoBehaviour, IDropHandler
     public void RetireCard()
     {
         cardData = null;
-    }
+    } 
+    
 
     
 }

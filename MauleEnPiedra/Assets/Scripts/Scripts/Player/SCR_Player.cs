@@ -12,9 +12,10 @@ public class SCR_Player : MonoBehaviour
     [SerializeField] private List<SO_Cards> HandCards = new List<SO_Cards>();
     [SerializeField] private List<SO_Cards> SpecialCards = new List<SO_Cards>();
     [SerializeField] private List<SO_Cards> GroupCards = new List<SO_Cards>();
+    [SerializeField] private CartaManager cardManager;
+    [SerializeField] private int Poinst = 0;
     [SerializeField] bool readySetup = false;
-    [SerializeField] bool endTurn = false;
-    
+
     public bool IsReadySetup()
     {
         return readySetup;
@@ -25,75 +26,20 @@ public class SCR_Player : MonoBehaviour
     }
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            PlayCardToFromHand(0);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            PlayCardToFromHand(1);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            PlayCardToFromHand(2);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            PlayCardToFromHand(3);
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            PlayCardToFromHand(4);
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            PlayCardToFromHand(5);
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            PlayPetToHand(0);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            PlayPetToHand(1);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            PlayPetToHand(2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            PlaySpeToHand(0);
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            PlaySpeToHand(1);
-        }
 
     }
 
     public IEnumerator DoMulligan(Turn turn)
     {
-        if (turn==Turn.Player)
+        if (turn == Turn.Player)
         {
             Debug.Log("Open UI");
         }
-        
+
         Debug.Log(name + " está eligiendo cartas para cambiar...");
 
         yield return new WaitUntil(() => readySetup); // Aquí puedes mostrar UI real
         //readySetup = false;
-    }
-
-    public bool IsEndTurn() { 
-        return endTurn;
-    }
-
-    public void SetEndTurn(bool _endTurn) {
-        endTurn = _endTurn;
     }
 
     //RobarCarta
@@ -105,7 +51,6 @@ public class SCR_Player : MonoBehaviour
 
     public void CardsReady()
     {
-
         readySetup = true;
     }
 
@@ -113,6 +58,11 @@ public class SCR_Player : MonoBehaviour
     public List<SO_Cards> GetHand()
     {
         return HandCards;
+    }
+
+    public List<SO_Cards> GetGroup()
+    {
+        return GroupCards;
     }
 
     private void PlayCardToFromHand(int indexcard)
@@ -127,7 +77,9 @@ public class SCR_Player : MonoBehaviour
 
         if (card.type == Card.Petroglyph)
         {
-
+            if (Scr_Rules.FullGroup(GroupCards))
+                return;
+            
             int insertIndex = -1;
             for (int i = 0; i < GroupCards.Count; i++)
             {
@@ -144,11 +96,13 @@ public class SCR_Player : MonoBehaviour
                 GroupCards.Add(null);
             }
 
-            StartCoroutine(CartaManager.Instance.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Group));
+            StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Group));
             GroupCards[insertIndex] = card;
         }
         else
         {
+            if (Scr_Rules.FullSpecial(SpecialCards))
+                return;
             int insertIndex = -1;
             for (int i = 0; i < SpecialCards.Count; i++)
             {
@@ -165,19 +119,22 @@ public class SCR_Player : MonoBehaviour
                 SpecialCards.Add(null);
             }
 
-            StartCoroutine(CartaManager.Instance.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Special));
+            StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Special));
             SpecialCards[insertIndex] = card;
         }
 
         HandCards[indexcard] = null;
     }
-
-
     private void PlayPetToHand(int indexcard)
     {
         if (indexcard < 0 || indexcard >= GroupCards.Count)
             return;
-       
+
+        if (Scr_Rules.FullHand(HandCards))
+        {
+            return;
+        }
+
         var card = GroupCards[indexcard];
 
         if (card != null && card.type == Card.Petroglyph)
@@ -198,17 +155,20 @@ public class SCR_Player : MonoBehaviour
                 HandCards.Add(null); // Expandimos lista si no hay espacio
             }
 
-            StartCoroutine(CartaManager.Instance.MoveCard(indexcard, insertIndex, card, CardZone.Group, CardZone.Hand));
+            StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Group, CardZone.Hand));
             HandCards[insertIndex] = card;
             GroupCards[indexcard] = null;
         }
     }
-
     private void PlaySpeToHand(int indexcard)
     {
         if (indexcard < 0 || indexcard >= SpecialCards.Count)
             return;
 
+        if (Scr_Rules.FullHand(HandCards))
+        {
+            return;
+        }
         var card = SpecialCards[indexcard];
 
         if (card != null && card.type != Card.Petroglyph)
@@ -229,14 +189,46 @@ public class SCR_Player : MonoBehaviour
                 HandCards.Add(null); // Expandimos lista si no hay espacio
             }
 
-            StartCoroutine(CartaManager.Instance.MoveCard(indexcard, insertIndex, card, CardZone.Special, CardZone.Hand));
+            StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Special, CardZone.Hand));
             HandCards[insertIndex] = card;
             SpecialCards[indexcard] = null;
         }
     }
 
+    public void ClickHand(int index){
+        PlayCardToFromHand(index);
+    }
 
+    public void ClickPet(int index)
+    {
+        PlayPetToHand(index);
+    }
 
+    public void ClickSpecial(int index)
+    {
+        PlaySpeToHand(index);
+    }
 
+    public void PetroComplete()
+    {
+        
+        int indexcard = 0;
+        foreach (var card in GroupCards)
+        {
+            StartCoroutine(cardManager.MoveCard(indexcard, 0, card, CardZone.Group, CardZone.HoleMaze));
+            indexcard++;
+        }
+        GroupCards.Clear();
+    }
+
+    public void AddPlayerPoints()
+    {
+        Poinst++;
+    }
+
+    public int GetPoints()
+    {
+        return Poinst;
+    }
 
 }

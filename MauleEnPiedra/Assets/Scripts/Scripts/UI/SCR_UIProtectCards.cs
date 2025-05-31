@@ -20,6 +20,7 @@ public class SCR_UISpecialCards : MonoBehaviour
         {
             player.CardsReady();
             table.DrawSpecificCard(Turn.Player, card);
+            table.DrawRandomCard(Turn.AI);
         }
         
 
