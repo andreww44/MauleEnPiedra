@@ -981,6 +981,7 @@ MonoBehaviour:
   cardManager: {fileID: 1367291066}
   Poinst: 0
   readySetup: 0
+  MyTurn: 0
 --- !u!4 &146314939
 Transform:
   m_ObjectHideFlags: 0
@@ -4118,6 +4119,7 @@ MonoBehaviour:
   cardManager: {fileID: 0}
   Poinst: 0
   readySetup: 0
+  MyTurn: 0
 --- !u!1 &1358864252
 GameObject:
   m_ObjectHideFlags: 0
@@ -5483,6 +5485,7 @@ MonoBehaviour:
   cardManager: {fileID: 1247533842}
   Poinst: 0
   readySetup: 0
+  MyTurn: 1
 --- !u!4 &1708414495
 Transform:
   m_ObjectHideFlags: 0

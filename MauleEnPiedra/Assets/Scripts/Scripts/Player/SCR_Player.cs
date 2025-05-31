@@ -15,6 +15,7 @@ public class SCR_Player : MonoBehaviour
     [SerializeField] private CartaManager cardManager;
     [SerializeField] private int Poinst = 0;
     [SerializeField] bool readySetup = false;
+    [SerializeField] Turn MyTurn;
 
     public bool IsReadySetup()
     {
@@ -95,8 +96,15 @@ public class SCR_Player : MonoBehaviour
                 insertIndex = GroupCards.Count;
                 GroupCards.Add(null);
             }
-
-            StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Group));
+            if(MyTurn == Turn.Player)
+            {
+                StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Group, true));
+            }
+            else
+            {
+                StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Group, true));
+            }
+            
             GroupCards[insertIndex] = card;
         }
         else
@@ -119,7 +127,16 @@ public class SCR_Player : MonoBehaviour
                 SpecialCards.Add(null);
             }
 
-            StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Special));
+            if (MyTurn == Turn.Player)
+            {
+
+                StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Special, true));
+            }
+            else 
+            {
+                StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Special, true));
+            }
+            
             SpecialCards[insertIndex] = card;
         }
 
@@ -155,7 +172,15 @@ public class SCR_Player : MonoBehaviour
                 HandCards.Add(null); // Expandimos lista si no hay espacio
             }
 
-            StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Group, CardZone.Hand));
+            if (MyTurn == Turn.Player)
+            {
+                StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Group, CardZone.Hand, true));
+            }
+            else
+            {
+                StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Group, CardZone.Hand, false));
+            }
+            
             HandCards[insertIndex] = card;
             GroupCards[indexcard] = null;
         }
@@ -189,12 +214,22 @@ public class SCR_Player : MonoBehaviour
                 HandCards.Add(null); // Expandimos lista si no hay espacio
             }
 
-            StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Special, CardZone.Hand));
+            if (MyTurn == Turn.Player)
+            {
+                StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Special, CardZone.Hand, true));
+            }
+            else 
+            {
+                StartCoroutine(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Special, CardZone.Hand, false));
+            }
+            
             HandCards[insertIndex] = card;
             SpecialCards[indexcard] = null;
         }
     }
 
+
+    //Apretar Cartas
     public void ClickHand(int index){
         PlayCardToFromHand(index);
     }
@@ -215,7 +250,15 @@ public class SCR_Player : MonoBehaviour
         int indexcard = 0;
         foreach (var card in GroupCards)
         {
-            StartCoroutine(cardManager.MoveCard(indexcard, 0, card, CardZone.Group, CardZone.HoleMaze));
+            if (MyTurn == Turn.Player)
+            {
+                StartCoroutine(cardManager.MoveCard(indexcard, 0, card, CardZone.Group, CardZone.HoleMaze, true));
+            }
+            else
+            {
+                StartCoroutine(cardManager.MoveCard(indexcard, 0, card, CardZone.Group, CardZone.HoleMaze, false));
+            }
+            
             indexcard++;
         }
         GroupCards.Clear();

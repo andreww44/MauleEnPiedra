@@ -34,14 +34,14 @@ public class CartaManager : MonoBehaviour
     
 
    
-    public IEnumerator MoveCard(int fromIndex, int toIndex, SO_Cards card, CardZone fromZone, CardZone toZone)
+    public IEnumerator MoveCard(int fromIndex, int toIndex, SO_Cards card, CardZone fromZone, CardZone toZone, bool isShowImage)
     {
         Transform[] fromSlots = GetSlotsByZone(fromZone);
         Transform[] toSlots = GetSlotsByZone(toZone);
 
         if (fromSlots[fromIndex].childCount > 0)
         {
-            //Destroy(fromSlots[fromIndex].GetChild(0).gameObject);
+            Destroy(fromSlots[fromIndex].GetChild(0).gameObject);
         }
 
         GameObject cartaGO = Instantiate(cartaPrefab, fromSlots[fromIndex]);
@@ -58,7 +58,11 @@ public class CartaManager : MonoBehaviour
 
         if (cartaGO.transform.childCount > 0)
         {
-            cartaGO.transform.GetChild(0).GetComponent<Image>().sprite = card.image;
+            if (isShowImage)
+            {
+                cartaGO.transform.GetChild(0).GetComponent<Image>().sprite = card.image;
+            }
+            
         }
 
         if (fromSlots[fromIndex].childCount > 0)

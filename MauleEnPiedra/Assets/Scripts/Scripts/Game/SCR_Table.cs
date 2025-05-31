@@ -64,8 +64,9 @@ public class SCR_Table : MonoBehaviour
                 foreach (var card in _holeDeck)
                 {
                     DeckCard.Add(card);
-                    StartCoroutine(CardManagerPlayer.MoveCard(0, 0, card, CardZone.HoleMaze, CardZone.Maze));
+                    StartCoroutine(CardManagerPlayer.MoveCard(0, 0, card, CardZone.HoleMaze, CardZone.Maze, false));
                 }
+                _holeDeck.Clear();
             }
             if(Player.GetPoints() >= 3)
             {
@@ -125,7 +126,7 @@ public class SCR_Table : MonoBehaviour
                     hand.Add(null); 
                 }
 
-                StartCoroutine(CardManagerPlayer.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand));
+                StartCoroutine(CardManagerPlayer.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand, true));
 
                 hand[insertIndex] = drawnCard;
             }
@@ -155,7 +156,7 @@ public class SCR_Table : MonoBehaviour
                     hand.Add(null);
                 }
 
-                StartCoroutine(CardManagerAI.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand));
+                StartCoroutine(CardManagerAI.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand, false));
 
                 hand[insertIndex] = drawnCard;
             }
@@ -168,7 +169,7 @@ public class SCR_Table : MonoBehaviour
         {
             if (!Scr_Rules.FullHand(Player.GetHand().Count))
             {
-                StartCoroutine(CardManagerPlayer.MoveCard(0, Player.GetHand().Count, card, CardZone.Maze, CardZone.Hand));
+                StartCoroutine(CardManagerPlayer.MoveCard(0, Player.GetHand().Count, card, CardZone.Maze, CardZone.Hand, true));
                 Player.DrawCard(card);
                 DeckCard.Remove(card);
             }
@@ -177,7 +178,7 @@ public class SCR_Table : MonoBehaviour
         {
             if (!Scr_Rules.FullHand(Ai.GetHand().Count))
             {
-                StartCoroutine(CardManagerPlayer.MoveCard(0, Ai.GetHand().Count, card, CardZone.Maze, CardZone.Hand));
+                StartCoroutine(CardManagerPlayer.MoveCard(0, Ai.GetHand().Count, card, CardZone.Maze, CardZone.Hand, false));
                 Ai.DrawCard(card);
                 DeckCard.Remove(card);
             }
