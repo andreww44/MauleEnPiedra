@@ -142,8 +142,12 @@ public class SCR_Player : MonoBehaviour
             
             SpecialCards[insertIndex] = card;
         }
-        table.StartCard(card);
+        
         HandCards[indexcard] = null;
+        if (table.StartCard(card))
+        {
+            SpecialToD(card);
+        }
     }
     public void PlayPetToHand(int indexcard)
     {
@@ -188,6 +192,23 @@ public class SCR_Player : MonoBehaviour
             GroupCards[indexcard] = null;
         }
     }
+    
+    public void SpecialToD(SO_Cards card)
+    {
+        for(int i = 0;i < SpecialCards.Count; i++)
+        {
+            if(SpecialCards[i] == card)
+            {
+                table.coroutineQueue.Enqueue(cardManager.MoveCard(i, 0, card, CardZone.Special, CardZone.HoleMaze, true, MyTurn));
+                break;
+            }
+        }
+        table.GetHole().Add(card);
+        SpecialCards.Remove(card);
+
+        
+    }
+    
     public void PlaySpeToHand(int indexcard)
     {
         if (indexcard < 0 || indexcard >= SpecialCards.Count)
@@ -231,14 +252,13 @@ public class SCR_Player : MonoBehaviour
         }
     }
 
-    public bool OponentHand(SO_Cards card, SO_Cards removeCard)
+    public bool OponentHand(SO_Cards card)
     {
         //No se mueve la carta
         if (Scr_Rules.FullHand(HandCards))
         {
             return false;
         }
-        
 
         if (card != null)
         {

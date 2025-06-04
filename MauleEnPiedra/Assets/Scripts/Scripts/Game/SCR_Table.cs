@@ -53,7 +53,7 @@ public class SCR_Table : MonoBehaviour
     void Start()
     {
         
-        LoadCards();
+        //LoadCards();
         GameSetup();
     }
 
@@ -109,7 +109,7 @@ public class SCR_Table : MonoBehaviour
             if (!Scr_Rules.FullHand(Player.GetHand()))
             {
                 SO_Cards drawnCard = DeckCard[index];
-                DeckCard.RemoveAt(index);
+                DeckCard.Remove(drawnCard);
 
                 List<SO_Cards> hand = Player.GetHand();
                 int insertIndex = -1;
@@ -139,7 +139,7 @@ public class SCR_Table : MonoBehaviour
             if (!Scr_Rules.FullHand(Ai.GetHand()))
             {
                 SO_Cards drawnCard = DeckCard[index];
-                DeckCard.RemoveAt(index);
+                DeckCard.Remove(drawnCard);
 
                 List<SO_Cards> hand = Ai.GetHand();
                 int insertIndex = -1;
@@ -197,7 +197,7 @@ public class SCR_Table : MonoBehaviour
         //Paso 3: Dar cartas iniciales (ej. 3 para el que empieza, 4 para el otro)
         if (currentTurn == Turn.Player)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 DrawRandomCard(Turn.Player);
                 //DrawSpecificCard(Turn.Player, DeckCard[0]);
@@ -213,7 +213,7 @@ public class SCR_Table : MonoBehaviour
             {
                 DrawRandomCard(Turn.AI);
             }
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 DrawRandomCard(Turn.Player);
             }
@@ -320,6 +320,7 @@ public class SCR_Table : MonoBehaviour
         {
             //Cambia una carta con el contrincante. - Intercambio cultura;
             case 21: //
+                //Esta bug pero funcionando
                 var playerHand = Player.GetHand();
                 var aiHand = Ai.GetHand();
 
@@ -342,25 +343,79 @@ public class SCR_Table : MonoBehaviour
                 int randhandplayer = playerValidIndexes[UnityEngine.Random.Range(0, playerValidIndexes.Count)];
                 int randhandAI = aiValidIndexes[UnityEngine.Random.Range(0, aiValidIndexes.Count)];
 
+                if (Player.GetHand()[randhandplayer].Code == 21 || Ai.GetHand()[randhandAI].Code== 21)
+                {
+                    return false;
+                }
+
                 var cardPlayer = playerHand[randhandplayer];
                 var cardAI = aiHand[randhandAI];
 
                 // Remover las cartas
-                playerHand.RemoveAt(randhandplayer);
-                aiHand.RemoveAt(randhandAI);
+                playerHand.Remove(cardPlayer);
+                aiHand.Remove(cardAI);
 
                 // Jugar
-                return Player.OponentHand(cardAI, cardPlayer) && Ai.OponentHand(cardPlayer, cardAI);
+                return Player.OponentHand(cardAI) && Ai.OponentHand(cardPlayer);
 
             //Roba una carta del deck.
             case 22:
-                break;
+                if (currentTurn == Turn.Player)
+                {
+                    if (Scr_Rules.FullHand(Player.GetHand().Count))
+                    {
+                        return false;
+                    }
+                    DrawRandomCard(currentTurn);
+                    return true;
+                }
+                else if (currentTurn == Turn.AI)
+                {
+                    if (Scr_Rules.FullHand(Ai.GetHand().Count))
+                    {
+                        return false;
+                    }
+                    DrawRandomCard(currentTurn);
+                    return true;
+                }
+                return false;
             //Roba una carta aleatoria del mazo contrario.
             case 23:
+                if (currentTurn == Turn.Player)
+                {
+                    if (Scr_Rules.FullHand(Player.GetHand().Count))
+                    {
+                        return false;
+                    }
+                    
+                    return true;
+                }
+                else if (currentTurn == Turn.AI)
+                {
+                    if (Scr_Rules.FullHand(Ai.GetHand().Count))
+                    {
+                        return false;
+                    }
+                    
+                    return true;
+                }
+                return false;
                 break;
             default:
                 break;
         }
-        return true;
+        return false;
+    }
+
+    public List<SO_Cards> GetHole()
+    {
+        return _holeDeck;
+    }
+
+    private void StealCard()
+    {
+
     }
 }
+
+
