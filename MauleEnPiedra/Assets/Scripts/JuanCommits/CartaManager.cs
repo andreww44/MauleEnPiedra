@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,19 +11,28 @@ public enum CardZone
     Special,
     Maze,
     HoleMaze,
+    ToG
 }
 
 public class CartaManager : MonoBehaviour
 {
     public GameObject cartaPrefab;
+    
     public Transform[] slots;
-    public Transform[] reparto;
-    public Transform[] holemaze;
     public Transform[] slotsPetro;
     public Transform[] slotsSpecial;
+    public Transform[] slotsToG;
 
-    public float tiempoEntreCartas = 0.4f;
-    public float duracionMovimiento = 0.4f;
+    public Transform[] Aislots;
+    public Transform[] AislotsPetro;
+    public Transform[] AislotsSpecial;
+    public Transform[] AislotsToG;
+
+    public Transform[] reparto;
+    public Transform[] holemaze;
+
+    public float tiempoEntreCartas = 0.1f;
+    public float duracionMovimiento = 0.1f;
 
     private void Awake()
     {
@@ -34,10 +44,10 @@ public class CartaManager : MonoBehaviour
     
 
    
-    public IEnumerator MoveCard(int fromIndex, int toIndex, SO_Cards card, CardZone fromZone, CardZone toZone, bool isShowImage)
+    public IEnumerator MoveCard(int fromIndex, int toIndex, SO_Cards card, CardZone fromZone, CardZone toZone, bool isShowImage, Turn turn)
     {
-        Transform[] fromSlots = GetSlotsByZone(fromZone);
-        Transform[] toSlots = GetSlotsByZone(toZone);
+        Transform[] fromSlots = GetSlotsByZone(fromZone, turn);
+        Transform[] toSlots = GetSlotsByZone(toZone, turn);
 
         if (fromSlots[fromIndex].childCount > 0)
         {
@@ -72,19 +82,36 @@ public class CartaManager : MonoBehaviour
         }
     }
 
-    private Transform[] GetSlotsByZone(CardZone zone)
+    private Transform[] GetSlotsByZone(CardZone zone, Turn turn)
     {
-        switch (zone)
+        Debug.Log(turn);
+        switch (turn)
         {
-            case CardZone.Hand: return slots;
-            case CardZone.Group: return slotsPetro;
-            case CardZone.Special: return slotsSpecial;
-            case CardZone.Maze: return reparto;
-            case CardZone.HoleMaze: return holemaze;
-            default: return null;
+            case Turn.Player:
+                switch (zone)
+                {
+                    case CardZone.Hand: return slots;
+                    case CardZone.Group: return slotsPetro;
+                    case CardZone.Special: return slotsSpecial;
+                    case CardZone.ToG: return AislotsToG;
+                    case CardZone.Maze: return reparto;
+                    case CardZone.HoleMaze: return holemaze;
+                    default: return null;
+                }
+            case Turn.AI:
+                switch (zone)
+                {
+                    case CardZone.Hand: return Aislots;
+                    case CardZone.Group: return AislotsPetro;
+                    case CardZone.Special: return AislotsSpecial;
+                    case CardZone.ToG: return slotsToG;
+                    case CardZone.Maze: return reparto;
+                    case CardZone.HoleMaze: return holemaze;
+                    default: return null;
+                }
         }
+        return null;
     }
-
 
     public IEnumerator Suavizado(RectTransform carta, Transform destino)
     {

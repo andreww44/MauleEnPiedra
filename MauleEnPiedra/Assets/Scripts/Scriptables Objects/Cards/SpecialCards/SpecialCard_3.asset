@@ -15,4 +15,4 @@ MonoBehaviour:
   name: SpecialCard3
   type: 2
   image: {fileID: 21300000, guid: 15b47f2003a59b549b0522d47a283e06, type: 3}
-  Code: 11
+  Code: 23

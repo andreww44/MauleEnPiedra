@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -31,8 +32,9 @@ public class SCR_Table : MonoBehaviour
     [SerializeField] private SO_DeckCard _deckCard;
     [SerializeField] private List<SO_Cards> DeckCard = new List<SO_Cards>();
     [SerializeField] private List<SO_Cards> _holeDeck = new List<SO_Cards>();
-    [SerializeField] private CartaManager CardManagerPlayer;
-    [SerializeField] private CartaManager CardManagerAI;
+    [SerializeField] private CartaManager CardManager;
+
+    public SCR_CoroutineQueue coroutineQueue;
 
 
     //Player GameHand
@@ -50,8 +52,9 @@ public class SCR_Table : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         LoadCards();
-        StartCoroutine(GameSetup());
+        GameSetup();
     }
 
     // Update is called once per frame
@@ -64,7 +67,7 @@ public class SCR_Table : MonoBehaviour
                 foreach (var card in _holeDeck)
                 {
                     DeckCard.Add(card);
-                    StartCoroutine(CardManagerPlayer.MoveCard(0, 0, card, CardZone.HoleMaze, CardZone.Maze, false));
+                    coroutineQueue.Enqueue(CardManager.MoveCard(0, 0, card, CardZone.HoleMaze, CardZone.Maze, false, Turn.Player));
                 }
                 _holeDeck.Clear();
             }
@@ -126,7 +129,7 @@ public class SCR_Table : MonoBehaviour
                     hand.Add(null); 
                 }
 
-                StartCoroutine(CardManagerPlayer.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand, true));
+                coroutineQueue.Enqueue(CardManager.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand, true, Turn.Player));
 
                 hand[insertIndex] = drawnCard;
             }
@@ -156,7 +159,7 @@ public class SCR_Table : MonoBehaviour
                     hand.Add(null);
                 }
 
-                StartCoroutine(CardManagerAI.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand, false));
+                coroutineQueue.Enqueue(CardManager.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand, false, Turn.AI));
 
                 hand[insertIndex] = drawnCard;
             }
@@ -169,7 +172,7 @@ public class SCR_Table : MonoBehaviour
         {
             if (!Scr_Rules.FullHand(Player.GetHand().Count))
             {
-                StartCoroutine(CardManagerPlayer.MoveCard(0, Player.GetHand().Count, card, CardZone.Maze, CardZone.Hand, true));
+                coroutineQueue.Enqueue(CardManager.MoveCard(0, Player.GetHand().Count, card, CardZone.Maze, CardZone.Hand, true, Turn.Player));
                 Player.DrawCard(card);
                 DeckCard.Remove(card);
             }
@@ -178,27 +181,18 @@ public class SCR_Table : MonoBehaviour
         {
             if (!Scr_Rules.FullHand(Ai.GetHand().Count))
             {
-                StartCoroutine(CardManagerPlayer.MoveCard(0, Ai.GetHand().Count, card, CardZone.Maze, CardZone.Hand, false));
+                coroutineQueue.Enqueue(CardManager.MoveCard(0, Ai.GetHand().Count, card, CardZone.Maze, CardZone.Hand, false, Turn.AI));
                 Ai.DrawCard(card);
                 DeckCard.Remove(card);
             }
         }
     }
 
-
-
-    IEnumerator GameSetup()
+    public void GameSetup()
     {
         //Paso 1: Sortear turno
         currentTurn = (Turn)UnityEngine.Random.Range(0, 2);
         UnityEngine.Debug.Log("El jugador que empieza es: " + currentTurn);
-
-
-        //Paso 2: Esperar a que ambos hagan Mulligan
-        UICardsMulligan.SetActive(true);
-        yield return StartCoroutine(Player.DoMulligan(Turn.Player));
-        //yield return StartCoroutine(Ai.DoMulligan(Turn.AI));
-        UICardsMulligan.SetActive(false);
 
         //Paso 3: Dar cartas iniciales (ej. 3 para el que empieza, 4 para el otro)
         if (currentTurn == Turn.Player)
@@ -317,5 +311,56 @@ public class SCR_Table : MonoBehaviour
             UnityEngine.Debug.Log("No suma puntos");
 
         }
+    }
+
+    public bool StartCard(SO_Cards card)
+    {
+        //Carta Especiales
+        switch (card.Code)
+        {
+            //Cambia una carta con el contrincante. - Intercambio cultura;
+            case 21: //
+                var playerHand = Player.GetHand();
+                var aiHand = Ai.GetHand();
+
+                if (playerHand.Count == 0 || aiHand.Count == 0)
+                {
+                    return false;
+                }
+
+                // Filtrar solo cartas no nulas
+                var playerValidIndexes = Enumerable.Range(0, playerHand.Count).Where(i => playerHand[i] != null).ToList();
+                var aiValidIndexes = Enumerable.Range(0, aiHand.Count).Where(i => aiHand[i] != null).ToList();
+
+                // Verificar si hay al menos una carta válida
+                if (playerValidIndexes.Count == 0 || aiValidIndexes.Count == 0)
+                {
+                    return false;
+                }
+
+                // Elegir una carta al azar de las válidas
+                int randhandplayer = playerValidIndexes[UnityEngine.Random.Range(0, playerValidIndexes.Count)];
+                int randhandAI = aiValidIndexes[UnityEngine.Random.Range(0, aiValidIndexes.Count)];
+
+                var cardPlayer = playerHand[randhandplayer];
+                var cardAI = aiHand[randhandAI];
+
+                // Remover las cartas
+                playerHand.RemoveAt(randhandplayer);
+                aiHand.RemoveAt(randhandAI);
+
+                // Jugar
+                return Player.OponentHand(cardAI, cardPlayer) && Ai.OponentHand(cardPlayer, cardAI);
+
+            //Roba una carta del deck.
+            case 22:
+                break;
+            //Roba una carta aleatoria del mazo contrario.
+            case 23:
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }

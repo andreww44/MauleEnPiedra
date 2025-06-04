@@ -9,17 +9,13 @@ public static class Scr_Rules
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
-    public static void CompareCards()
-    {
-
-    }
-
     public static bool FullHand(int numberOfCards)
     {
         if(numberOfCards < 6 ){ return false; }
         return true;
     }
-
+    
+    //La mano esta llena no se pueden agregar mas cartas
     public static bool FullHand(List<SO_Cards> list)
     {
         if (list == null) return false;
@@ -36,6 +32,7 @@ public static class Scr_Rules
         return true; // Si tiene 6 cartas no nulas
     }
 
+    // El grupo esta lleno por lo tanto no se puede jugar la carta
     public static bool FullGroup(List<SO_Cards> list)
     {
         if (list == null) return false;
@@ -68,8 +65,6 @@ public static class Scr_Rules
         return true; // Si tiene 6 cartas no nulas
     }
 
-
-
     public static bool PetroComplete(List<SO_Cards> list)
     {
         if (list == null || list.Count != 3)
@@ -95,4 +90,6 @@ public static class Scr_Rules
 
         return true;
     }
+
+    
 }
