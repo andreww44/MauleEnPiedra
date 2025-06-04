@@ -1,43 +1,57 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Collections;
 
-public class CartaZoom : MonoBehaviour, IPointerClickHandler
+[RequireComponent(typeof(Image))]
+public class CartaZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private RectTransform rectTransform;
-    private Vector3 originalScale;
-    private Vector3 zoomScale = new Vector3(2f, 2f, 2f);
-    private float zoomDuration = 0.3f;
-    private bool isZoomed = false;
+    public SO_Cards cardData;
+    public GameObject previewUI;
+    public float previewScale = 1.2f;
 
-    void Awake()
+    private Image _previewImage;
+    private Vector2 _originalSize;
+
+    private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        originalScale = rectTransform.localScale;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (isZoomed)
-            StartCoroutine(ZoomTo(originalScale));
-        else
-            StartCoroutine(ZoomTo(zoomScale));
-
-        isZoomed = !isZoomed;
-    }
-
-    IEnumerator ZoomTo(Vector3 targetScale)
-    {
-        float time = 0f;
-        Vector3 startScale = rectTransform.localScale;
-
-        while (time < zoomDuration)
+        if (previewUI != null)
         {
-            rectTransform.localScale = Vector3.Lerp(startScale, targetScale, time / zoomDuration);
-            time += Time.unscaledDeltaTime;
-            yield return null;
+            _previewImage = previewUI.GetComponent<Image>();
+            if (_previewImage != null)
+            {
+                _originalSize = _previewImage.rectTransform.sizeDelta;
+                previewUI.SetActive(false);
+            }
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Image currentImage = GetComponent<Image>();
+        if (currentImage == null || cardData == null || previewUI == null) return;
+        if (currentImage.sprite != cardData.image) return;
+
+        if (_previewImage == null)
+        {
+            _previewImage = previewUI.GetComponent<Image>();
+            if (_previewImage == null) return;
+            _originalSize = _previewImage.rectTransform.sizeDelta;
         }
 
-        rectTransform.localScale = targetScale;
+        previewUI.SetActive(true);
+        _previewImage.sprite = cardData.image;
+        _previewImage.preserveAspect = true;
+        _previewImage.rectTransform.sizeDelta = _originalSize * previewScale;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_previewImage != null)
+        {
+            _previewImage.sprite = null;
+            _previewImage.rectTransform.sizeDelta = _originalSize;
+        }
+        if (previewUI != null)
+            previewUI.SetActive(false);
     }
 }

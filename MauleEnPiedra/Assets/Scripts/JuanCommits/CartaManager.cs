@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,20 +19,10 @@ public class CartaManager : MonoBehaviour
     public Transform[] holemaze;
     public Transform[] slotsPetro;
     public Transform[] slotsSpecial;
-
+    public GameObject previewUI;
     public float tiempoEntreCartas = 0.4f;
     public float duracionMovimiento = 0.4f;
 
-    private void Awake()
-    {
-    }
-    void Start()
-    {
-    }
-
-    
-
-   
     public IEnumerator MoveCard(int fromIndex, int toIndex, SO_Cards card, CardZone fromZone, CardZone toZone, bool isShowImage)
     {
         Transform[] fromSlots = GetSlotsByZone(fromZone);
@@ -48,26 +37,35 @@ public class CartaManager : MonoBehaviour
         RectTransform cartaRT = cartaGO.GetComponent<RectTransform>();
         cartaRT.localPosition = Vector3.zero;
 
+        CartaZoom cz = cartaGO.GetComponentInChildren<CartaZoom>();
+        if (cz != null)
+        {
+            cz.cardData = card;
+            cz.previewUI = previewUI;
+        }
+
         yield return new WaitForSeconds(tiempoEntreCartas);
 
         Transform destino = toSlots[toIndex];
         yield return StartCoroutine(Suavizado(cartaRT, destino));
-        
-        destino.GetComponent<CartaSlot>().setSoCard(card);
+
+        CartaSlot slotScript = destino.GetComponent<CartaSlot>();
+        if (slotScript != null)
+        {
+            slotScript.setSoCard(card);
+        }
+
         yield return new WaitForSeconds(tiempoEntreCartas);
 
-        if (cartaGO.transform.childCount > 0)
+        Image imgComponent = cartaGO.GetComponentInChildren<Image>();
+        if (imgComponent != null && isShowImage)
         {
-            if (isShowImage)
-            {
-                cartaGO.transform.GetChild(0).GetComponent<Image>().sprite = card.image;
-            }
-            
+            imgComponent.sprite = card.image;
+            imgComponent.preserveAspect = true;
         }
 
         if (fromSlots[fromIndex].childCount > 0)
         {
-            
             Destroy(fromSlots[fromIndex].GetChild(0).gameObject);
         }
     }
@@ -85,13 +83,10 @@ public class CartaManager : MonoBehaviour
         }
     }
 
-
-    public IEnumerator Suavizado(RectTransform carta, Transform destino)
+    private IEnumerator Suavizado(RectTransform carta, Transform destino)
     {
         Vector3 inicio = carta.position;
         Vector3 final = destino.position;
-        Transform parentOriginal = carta.parent;
-
         float t = 0f;
 
         while (t < 1f)
