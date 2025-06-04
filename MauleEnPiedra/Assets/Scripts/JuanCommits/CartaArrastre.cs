@@ -16,8 +16,8 @@ public class CartaArrastre : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        parentToReturnTo = transform.parent;
-        transform.SetParent(transform.root, true);
+        parentToReturnTo = this.transform.parent;
+        transform.SetParent(transform.root); 
         canvasGroup.blocksRaycasts = false;
     }
 

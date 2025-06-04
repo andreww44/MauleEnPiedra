@@ -1,321 +1,283 @@
-using NUnit.Framework;
-using NUnit.Framework.Interfaces;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Timers;
+Ôªøusing System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
-
-public enum Turn
-{
-    Player,
-    AI
-}
-
-public enum GameState
-{
-    Setup,
-    InGame,
-    EndGame
-}
-
 
 public class SCR_Table : MonoBehaviour
 {
+    public static SCR_Table Instance { get; private set; }
 
-    //LÛgica detras del juego
-    [SerializeField] private SCR_Player Player;
-    [SerializeField] private SCR_Player Ai;
-    [SerializeField] private SO_DeckCard _deckCard;
-    [SerializeField] private List<SO_Cards> DeckCard = new List<SO_Cards>();
-    [SerializeField] private List<SO_Cards> _holeDeck = new List<SO_Cards>();
-    [SerializeField] private CartaManager CardManagerPlayer;
-    [SerializeField] private CartaManager CardManagerAI;
-
-
-    //Player GameHand
-
-
-    [SerializeField] private GameObject UICardsMulligan;
-
-    private Turn currentTurn;
-    private GameState currentGameState;
-
-
-   
-    [SerializeField] private bool hasStartedTurn = false;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        LoadCards();
-        StartCoroutine(GameSetup());
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    [Header("---- Jugadores ----")]
+    public SCR_Player Player;
+    public SCR_Player Ai;
+
+    [Header("---- Mazo y Pozo ----")]
+    public List<SO_Cards> DeckCard = new List<SO_Cards>();
+    public List<SO_Cards> HoleDeck = new List<SO_Cards>();
+
+    [Header("---- Estado de Partida ----")]
+    public Turn currentTurn;
+    public GameState gameState;
+    private bool hasStartedTurn;
+
+    [Header("---- UI Mulligan ----")]
+    public GameObject UICardsMulligan;
+    public GameObject UIWaitingOpponent;
+
+    private System.Collections.IEnumerator Start()
     {
-        if (currentGameState == GameState.InGame)
+        gameState = GameState.Setup;
+        UICardsMulligan.SetActive(true);
+        UIWaitingOpponent.SetActive(false);
+
+        ShuffleDeck();
+        yield return StartCoroutine(GameSetup());
+    }
+
+    private void Update()
+    {
+        if (gameState == GameState.InGame)
         {
-            if (DeckCard.Count == 0)
-            {
-                foreach (var card in _holeDeck)
-                {
-                    DeckCard.Add(card);
-                    StartCoroutine(CardManagerPlayer.MoveCard(0, 0, card, CardZone.HoleMaze, CardZone.Maze, false));
-                }
-                _holeDeck.Clear();
-            }
-            if(Player.GetPoints() >= 3)
-            {
-                currentGameState = GameState.EndGame;
-            }
             if (!hasStartedTurn)
             {
                 hasStartedTurn = true;
-                if (currentTurn == Turn.Player) {StartPlayerTurn();}
-                else { StartPlayerTurn();}
-            }
-            else
-            {
-                if(currentTurn == Turn.Player) { PlayerPet();}
-                else
+                SCR_Player actual = (currentTurn == Turn.Player) ? Player : Ai;
+
+                if (actual.skipNextTurn)
                 {
-                    PetAI();
+                    actual.skipNextTurn = false;
+                    EndCurrentPlayerTurn();
+                    return;
+                }
+
+                int draws = 1 + actual.extraDrawsNextTurn;
+                for (int i = 0; i < draws; i++)
+                {
+                    DrawRandomCard(actual == Player);
+                }
+                actual.extraDrawsNextTurn = 0;
+
+                if (currentTurn == Turn.AI)
+                {
+                    StartCoroutine(PetAI());
                 }
             }
         }
-
-        if (currentGameState == GameState.EndGame)
+        else if (gameState == GameState.EndGame)
         {
-            UnityEngine.Debug.Log("Carga la siguiente pantalla");
-        }
-
-    }
-
-    public void DrawRandomCard(Turn turn)
-    {
-
-        int index = UnityEngine.Random.Range(0, DeckCard.Count);
-       
-
-        if (turn == Turn.Player)
-        {
-            if (!Scr_Rules.FullHand(Player.GetHand()))
-            {
-                SO_Cards drawnCard = DeckCard[index];
-                DeckCard.RemoveAt(index);
-
-                List<SO_Cards> hand = Player.GetHand();
-                int insertIndex = -1;
-
-                for (int i = 0; i < hand.Count; i++)
-                {
-                    if (hand[i] == null)
-                    {
-                        insertIndex = i;
-                        break;
-                    }
-                }
-
-                if (insertIndex == -1)
-                {
-                    insertIndex = hand.Count;
-                    hand.Add(null); 
-                }
-
-                StartCoroutine(CardManagerPlayer.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand, true));
-
-                hand[insertIndex] = drawnCard;
-            }
-        }
-        if (turn == Turn.AI)
-        {
-            if (!Scr_Rules.FullHand(Ai.GetHand()))
-            {
-                SO_Cards drawnCard = DeckCard[index];
-                DeckCard.RemoveAt(index);
-
-                List<SO_Cards> hand = Ai.GetHand();
-                int insertIndex = -1;
-
-                for (int i = 0; i < hand.Count; i++)
-                {
-                    if (hand[i] == null)
-                    {
-                        insertIndex = i;
-                        break;
-                    }
-                }
-
-                if (insertIndex == -1)
-                {
-                    insertIndex = hand.Count;
-                    hand.Add(null);
-                }
-
-                StartCoroutine(CardManagerAI.MoveCard(0, insertIndex, drawnCard, CardZone.Maze, CardZone.Hand, false));
-
-                hand[insertIndex] = drawnCard;
-            }
+            // Juego terminado: aqu√≠ puedes mostrar pantalla de victoria, etc.
         }
     }
 
-    public void DrawSpecificCard(Turn turn, SO_Cards card)
+    private System.Collections.IEnumerator GameSetup()
     {
-        if (turn == Turn.Player)
-        {
-            if (!Scr_Rules.FullHand(Player.GetHand().Count))
-            {
-                StartCoroutine(CardManagerPlayer.MoveCard(0, Player.GetHand().Count, card, CardZone.Maze, CardZone.Hand, true));
-                Player.DrawCard(card);
-                DeckCard.Remove(card);
-            }
-        }
-        if (turn == Turn.AI)
-        {
-            if (!Scr_Rules.FullHand(Ai.GetHand().Count))
-            {
-                StartCoroutine(CardManagerPlayer.MoveCard(0, Ai.GetHand().Count, card, CardZone.Maze, CardZone.Hand, false));
-                Ai.DrawCard(card);
-                DeckCard.Remove(card);
-            }
-        }
-    }
+        currentTurn = (Turn)Random.Range(0, 2);
+        Debug.Log("Quien inicia: " + currentTurn);
 
-
-
-    IEnumerator GameSetup()
-    {
-        //Paso 1: Sortear turno
-        currentTurn = (Turn)UnityEngine.Random.Range(0, 2);
-        UnityEngine.Debug.Log("El jugador que empieza es: " + currentTurn);
-
-
-        //Paso 2: Esperar a que ambos hagan Mulligan
         UICardsMulligan.SetActive(true);
         yield return StartCoroutine(Player.DoMulligan(Turn.Player));
-        //yield return StartCoroutine(Ai.DoMulligan(Turn.AI));
+
+        yield return new WaitForSeconds(0.5f);
+        Ai.CardsReady();
+
         UICardsMulligan.SetActive(false);
 
-        //Paso 3: Dar cartas iniciales (ej. 3 para el que empieza, 4 para el otro)
-        if (currentTurn == Turn.Player)
+        for (int i = 0; i < 5; i++)
         {
-            for (int i = 0; i < 4; i++)
-            {
-                DrawRandomCard(Turn.Player);
-                //DrawSpecificCard(Turn.Player, DeckCard[0]);
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                DrawRandomCard(Turn.AI);
-            }
+            DrawRandomCard(true);
+            DrawRandomCard(false);
+            yield return new WaitForSeconds(0.1f);
         }
-        else
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                DrawRandomCard(Turn.AI);
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                DrawRandomCard(Turn.Player);
-            }
-        }
-        currentGameState = GameState.InGame;
-    }
 
-    private void LoadCards()
-    {
-        foreach (var card in _deckCard.petroglyphsCards)
-        {
-            DeckCard.Add(card);
-        }
-    }
-
-    //Button Next 
-    public void NextTurn()
-    {
-        currentTurn = (currentTurn == Turn.Player) ? Turn.AI : Turn.Player;
+        gameState = GameState.InGame;
         hasStartedTurn = false;
     }
 
-    private void StartPlayerTurn()
+    public void ShuffleDeck()
     {
-        if (currentTurn == Turn.Player)
+        for (int i = 0; i < DeckCard.Count; i++)
         {
-            if (!Scr_Rules.FullHand(Player.GetHand()))
-            {
-                DrawRandomCard(Turn.Player);
-                //DrawSpecificCard(Turn.Player, DeckCard[0]);
-            }
-        }
-        else 
-        {
-            if (!Scr_Rules.FullHand(Ai.GetHand()))
-            {
-                DrawRandomCard(Turn.AI);
-
-            }
-        }
-
-        
-
-        // AquÌ puedes aÒadir otras lÛgicas si quieres que el jugador pueda realizar acciones, etc.
-        UnityEngine.Debug.Log("Juega el humano");
-    }
-
-    private void PlayerPet()
-    {
-        if (Scr_Rules.PetroComplete(Player.GetGroup()))
-        {
-            foreach (var card in Player.GetGroup())
-            {
-                _holeDeck.Add(card);
-            }
-           
-            Player.PetroComplete();
-            Player.AddPlayerPoints();
-            UnityEngine.Debug.Log("Suma Puntos");
-        }
-
-        if (Scr_Rules.PetroInComplete(Player.GetGroup()))
-        {
-            foreach (var card in Player.GetGroup())
-            {
-                _holeDeck.Add(card);
-            }
-            Player.PetroComplete();
-            UnityEngine.Debug.Log("No suma puntos");
-
+            var temp = DeckCard[i];
+            int rand = Random.Range(i, DeckCard.Count);
+            DeckCard[i] = DeckCard[rand];
+            DeckCard[rand] = temp;
         }
     }
 
-    private void PetAI()
+    public void DrawRandomCard(bool playerIsHuman)
     {
-        if (Scr_Rules.PetroComplete(Ai.GetGroup()))
+        if (DeckCard.Count == 0)
         {
-            foreach (var card in Ai.GetGroup())
-            {
-                _holeDeck.Add(card);
-            }
-
-            Ai.PetroComplete();
-            Ai.AddPlayerPoints();
-            UnityEngine.Debug.Log("Suma Puntos");
+            DeckCard.AddRange(HoleDeck);
+            HoleDeck.Clear();
+            ShuffleDeck();
         }
 
-        if (Scr_Rules.PetroInComplete(Ai.GetGroup()))
-        {
-            foreach (var card in Ai.GetGroup())
-            {
-                _holeDeck.Add(card);
-            }
-            Ai.PetroComplete();
-            UnityEngine.Debug.Log("No suma puntos");
+        SO_Cards drawn = DeckCard[0];
+        DeckCard.RemoveAt(0);
 
+        if (playerIsHuman)
+        {
+            int destinoIndex = Player.HandCards.Count;
+            Player.HandCards.Add(drawn);
+            StartCoroutine(AnimateDrawToHand(drawn, true, destinoIndex));
+        }
+        else
+        {
+            int destinoIndex = Ai.HandCards.Count;
+            Ai.HandCards.Add(drawn);
+            StartCoroutine(AnimateDrawToHand(drawn, false, destinoIndex));
         }
     }
+
+    public void DiscardToHole(SO_Cards carta)
+    {
+        HoleDeck.Add(carta);
+    }
+
+    private System.Collections.IEnumerator AnimateDrawToHand(SO_Cards drawn, bool playerIsHuman, int destinoIndex)
+    {
+        // yield return StartCoroutine(cartaManager.MoveCardFromDeckToHand(drawn, destinoIndex, playerIsHuman));
+        yield return null;
+    }
+
+    public System.Collections.IEnumerator AnimateDrawFromHole(SO_Cards carta, bool playerIsHuman)
+    {
+        yield return null;
+    }
+
+    public void NotifyPetroComplete(SCR_Player who)
+    {
+        Debug.Log($"{(who == Player ? "Jugador" : "IA")} complet√≥ un petroglifo. Puntos: {who.Points}");
+        // despues actualizar puntaje, reproducir un efecto o no se
+    }
+
+    public void NotifyPetroIncomplete(SCR_Player who)
+    {
+        Debug.Log($"{(who == Player ? "Jugador" : "IA")} ten√≠a 3 fragmentos inv√°lidos; se descartan sin puntuar.");
+    }
+
+    public void ShowOpponentHandTemporarily(SCR_Player opponent)
+    {
+        StartCoroutine(RutinaMostrarManoOponente(opponent));
+    }
+
+    private System.Collections.IEnumerator RutinaMostrarManoOponente(SCR_Player opponent)
+    {
+        UIWaitingOpponent.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        UIWaitingOpponent.SetActive(false);
+    }
+
+    private System.Collections.IEnumerator PetAI()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        if (Scr_Rules.PetroComplete(Ai.GroupCards) && !Ai.ProteccionActiva)
+        {
+            Ai.CheckCombineOrDiscard();
+            yield return new WaitForSeconds(0.5f);
+            EndCurrentPlayerTurn();
+            yield break;
+        }
+
+        foreach (var carta in Ai.HandCards)
+        {
+            if (carta.type == Card.Petroglyph)
+            {
+                int idx = Ai.HandCards.IndexOf(carta);
+                Ai.ClickHand(idx, Turn.AI);
+                yield return new WaitForSeconds(0.5f);
+                break;
+            }
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (Player.GroupCards.Count == 2)
+        {
+            var amenaza = Ai.HandCards.Find(c => c.type == Card.Threath && Scr_Rules.CanPlayThreat(c, Player));
+            if (amenaza != null)
+            {
+                int idxA = Ai.HandCards.IndexOf(amenaza);
+                Ai.ClickHand(idxA, Turn.AI);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+        if (Scr_Rules.PetroComplete(Ai.GroupCards) && !Ai.ProteccionActiva)
+        {
+            Ai.CheckCombineOrDiscard();
+            yield return new WaitForSeconds(0.5f);
+            EndCurrentPlayerTurn();
+            yield break;
+        }
+
+        if (Ai.HandCards.Count > 0)
+        {
+            var descarta = Ai.HandCards[0];
+            Ai.HandCards.RemoveAt(0);
+            DiscardToHole(descarta);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        EndCurrentPlayerTurn();
+    }
+
+    public void EndCurrentPlayerTurn()
+    {
+        SCR_Player actual = (currentTurn == Turn.Player) ? Player : Ai;
+        actual.CheckCombineOrDiscard();
+
+        Player.OnTurnEnd();
+        Ai.OnTurnEnd();
+
+        if (Player.Points >= 3 || Ai.Points >= 3)
+        {
+            gameState = GameState.EndGame;
+            Debug.Log((Player.Points >= 3 ? "Player" : "AI") + " gana la partida!");
+            return;
+        }
+
+        currentTurn = (currentTurn == Turn.Player) ? Turn.AI : Turn.Player;
+        hasStartedTurn = false;
+    }
+    public void DrawSpecificCard(Turn playerTurn, SO_Cards soCard)
+    {
+        // Si la carta existe en el mazo la quita
+        if (DeckCard.Contains(soCard))
+        {
+            DeckCard.Remove(soCard);
+        }
+        else
+        {
+            Debug.LogWarning($"DrawSpecificCard: La carta {soCard.name} no estaba en DeckCard.");
+        }
+
+        // La agrega a la mano del jugador correspondiente
+        if (playerTurn == Turn.Player)
+        {
+            Player.HandCards.Add(soCard);
+            // Aqu√≠ podr√≠as instanciar el prefab de carta en la UI:
+            // por ejemplo:
+            // GameObject go = Instantiate(cardPrefab, HandAreaTransform);
+            // go.GetComponent<UI_CardRepresentation>().SetCard(soCard);
+        }
+        else
+        {
+            Ai.HandCards.Add(soCard);
+            // Si deseas mostrar la carta en pantalla para la IA, haz algo similar:
+            // GameObject go = Instantiate(cardPrefab, AiHandAreaTransform);
+            // go.GetComponent<UI_CardRepresentation>().SetCard(soCard);
+        }
+    }
+
 }
