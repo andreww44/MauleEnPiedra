@@ -7,28 +7,24 @@
       "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scripts\\game\\scr_table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\scripts\\player\\scr_player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scripts\\player\\scr_player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\ai\\montecarlo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ai\\montecarlo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\scriptables objects\\so_cards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scriptables objects\\so_cards.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\enum\\typecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enum\\typecard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\juancommits\\cartamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\juancommits\\cartamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\scripts\\player\\scr_player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scripts\\player\\scr_player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\juancommits\\cartaslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\juancommits\\cartaslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\assets\\scripts\\scripts\\ui\\scr_coroutinequeue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scripts\\ui\\scr_coroutinequeue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|d:\\mep\\mauleenpiedra\\mauleenpiedra\\assets\\scripts\\ai\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B48203F-6CB2-580E-3995-74DFDEBDAC36}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ai\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,45 +34,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "CartaSlot.cs",
               "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\JuanCommits\\CartaSlot.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\JuanCommits\\CartaSlot.cs",
               "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\JuanCommits\\CartaSlot.cs",
               "RelativeToolTip": "Assets\\Scripts\\JuanCommits\\CartaSlot.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-29T03:37:39.96Z",
-              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SCR_CoroutineQueue.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\UI\\SCR_CoroutineQueue.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\UI\\SCR_CoroutineQueue.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\UI\\SCR_CoroutineQueue.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Scripts\\UI\\SCR_CoroutineQueue.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "SCR_Player.cs",
+              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
+              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
+              "ViewState": "AgIAAI8BAAAAAAAAAAAuwJ8BAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-04T08:36:20.382Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CartaManager.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\JuanCommits\\CartaManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\JuanCommits\\CartaManager.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\JuanCommits\\CartaManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\JuanCommits\\CartaManager.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAQwCIAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-04T06:55:29.398Z",
+              "WhenOpened": "2025-04-24T19:43:44.301Z",
               "EditorCaption": ""
             },
             {
@@ -87,22 +70,9 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\Game\\SCR_Table.cs",
               "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Game\\SCR_Table.cs",
               "RelativeToolTip": "Assets\\Scripts\\Scripts\\Game\\SCR_Table.cs",
-              "ViewState": "AgIAAGsBAAAAAAAAAAAwwE0BAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAowAkAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-04T06:41:45.659Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "TypeCard.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Enum\\TypeCard.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enum\\TypeCard.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Enum\\TypeCard.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enum\\TypeCard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-29T21:28:48.227Z",
               "EditorCaption": ""
             },
             {
@@ -113,7 +83,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Scriptables Objects\\SO_Cards.cs",
               "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scriptables Objects\\SO_Cards.cs",
               "RelativeToolTip": "Assets\\Scripts\\Scriptables Objects\\SO_Cards.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-29T07:53:46.192Z",
               "EditorCaption": ""
@@ -121,14 +91,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SCR_Player.cs",
-              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
-              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Scripts\\Player\\SCR_Player.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAAwMkAAAB/AAAAAAAAAA==",
+              "Title": "MonteCarlo.cs",
+              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\AI\\MonteCarlo.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\AI\\MonteCarlo.cs",
+              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\AI\\MonteCarlo.cs",
+              "RelativeToolTip": "Assets\\Scripts\\AI\\MonteCarlo.cs",
+              "ViewState": "AgIAALYAAAAAAAAAAAAIwAIBAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T19:43:44.301Z",
+              "WhenOpened": "2025-06-04T23:18:12.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Model.cs",
+              "DocumentMoniker": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\AI\\Model.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\AI\\Model.cs",
+              "ToolTip": "D:\\MEP\\MauleEnPiedra\\MauleEnPiedra\\Assets\\Scripts\\AI\\Model.cs",
+              "RelativeToolTip": "Assets\\Scripts\\AI\\Model.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAhwCAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T23:20:21.489Z",
               "EditorCaption": ""
             }
           ]

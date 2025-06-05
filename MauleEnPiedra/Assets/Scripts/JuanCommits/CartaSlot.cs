@@ -17,20 +17,24 @@ public class CartaSlot : MonoBehaviour
 
     public void Update()
     {
-        if (transform.childCount == 0)
+        if (myButton != null)
         {
-            RetireCard();
-        }
+            if (transform.childCount == 0)
+            {
+                RetireCard();
+            }
 
-        if (gameObject.transform.childCount > 0)
-        {
-            myButton.interactable = true;
+            if (gameObject.transform.childCount > 0)
+            {
+                myButton.interactable = true;
 
+            }
+            else
+            {
+                myButton.interactable = false;
+            }
         }
-        else
-        {
-            myButton.interactable = false;
-        }
+        
     }
 
     public void setSoCard(SO_Cards card)

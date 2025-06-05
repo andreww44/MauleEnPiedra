@@ -1,3 +1,4 @@
+using MC.Modelo;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using System;
@@ -7,7 +8,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public enum Turn
 {
@@ -15,7 +15,7 @@ public enum Turn
     AI
 }
 
-public enum GameState
+public enum GameStateFlow
 {
     Setup,
     InGame,
@@ -34,6 +34,8 @@ public class SCR_Table : MonoBehaviour
     [SerializeField] private List<SO_Cards> _holeDeck = new List<SO_Cards>();
     [SerializeField] private CartaManager CardManager;
 
+    [SerializeField] private int turns = 0;
+
     public SCR_CoroutineQueue coroutineQueue;
 
 
@@ -43,7 +45,7 @@ public class SCR_Table : MonoBehaviour
     [SerializeField] private GameObject UICardsMulligan;
 
     private Turn currentTurn;
-    private GameState currentGameState;
+    private GameStateFlow currentGameState;
 
 
    
@@ -60,7 +62,7 @@ public class SCR_Table : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentGameState == GameState.InGame)
+        if (currentGameState == GameStateFlow.InGame)
         {
             if (DeckCard.Count == 0)
             {
@@ -73,7 +75,7 @@ public class SCR_Table : MonoBehaviour
             }
             if(Player.GetPoints() >= 3)
             {
-                currentGameState = GameState.EndGame;
+                currentGameState = GameStateFlow.EndGame;
             }
             if (!hasStartedTurn)
             {
@@ -83,15 +85,28 @@ public class SCR_Table : MonoBehaviour
             }
             else
             {
-                if(currentTurn == Turn.Player) { PlayerPet();}
-                else
+                if(currentTurn == Turn.Player && Player.lostTurn == false) 
                 {
+                    //Permit
+                    //UnityEngine.Debug.Log("Juega Player ");
+                    Player.block = false;
+                    Ai.block = true;
+                    PlayerPet();
+                } 
+                else if(currentTurn == Turn.AI && Ai.lostTurn == false)
+                {
+                    //  UnityEngine.Debug.Log("Juega Ai");
+                    Player.block = true;
+                    Ai.block = false;
+                    WaitAndPlayAI();
                     PetAI();
+                    NextTurn();
+
                 }
             }
         }
 
-        if (currentGameState == GameState.EndGame)
+        if (currentGameState == GameStateFlow.EndGame)
         {
             UnityEngine.Debug.Log("Carga la siguiente pantalla");
         }
@@ -192,7 +207,7 @@ public class SCR_Table : MonoBehaviour
     {
         //Paso 1: Sortear turno
         currentTurn = (Turn)UnityEngine.Random.Range(0, 2);
-        UnityEngine.Debug.Log("El jugador que empieza es: " + currentTurn);
+        
 
         //Paso 3: Dar cartas iniciales (ej. 3 para el que empieza, 4 para el otro)
         if (currentTurn == Turn.Player)
@@ -218,7 +233,7 @@ public class SCR_Table : MonoBehaviour
                 DrawRandomCard(Turn.Player);
             }
         }
-        currentGameState = GameState.InGame;
+        currentGameState = GameStateFlow.InGame;
     }
 
     private void LoadCards()
@@ -233,6 +248,44 @@ public class SCR_Table : MonoBehaviour
     public void NextTurn()
     {
         currentTurn = (currentTurn == Turn.Player) ? Turn.AI : Turn.Player;
+        turns++;
+
+        if (Player.isProtect == true)
+        {
+            Player.indexProtect--;
+            if (Player.indexProtect == 0) {
+                Player.isProtect = false;
+                Player.indexProtect = 2;
+            }
+        }
+        if (Ai.isProtect == true) {
+
+            Ai.indexProtect--;
+            if (Player.indexProtect == 0)
+            {
+                Player.isProtect = false;
+                Player.indexProtect = 1;
+            }
+        }
+        if (Player.isLock == true)
+        {
+            Player.indexLock--;
+            if (Player.indexLock == 0)
+            {
+                Player.isLock = false;
+                Player.indexLock = 2;
+            }
+        }
+        if (Ai.isLock == true)
+        {
+
+            Ai.indexLock--;
+            if (Player.indexLock == 0)
+            {
+                Player.isLock = false;
+                Player.indexLock = 1;
+            }
+        }
         hasStartedTurn = false;
     }
 
@@ -258,7 +311,7 @@ public class SCR_Table : MonoBehaviour
         
 
         // Aquí puedes añadir otras lógicas si quieres que el jugador pueda realizar acciones, etc.
-        UnityEngine.Debug.Log("Juega el humano");
+        
     }
 
     private void PlayerPet()
@@ -271,8 +324,16 @@ public class SCR_Table : MonoBehaviour
             }
            
             Player.PetroComplete();
-            Player.AddPlayerPoints();
-            UnityEngine.Debug.Log("Suma Puntos");
+            if (Player.isLock == false)
+            {
+                Player.AddPlayerPoints();
+                UnityEngine.Debug.Log("Suma Puntos");
+            }
+            else
+            {
+                UnityEngine.Debug.Log("No suma puntos esta bloqueado");
+            }
+            
         }
 
         if (Scr_Rules.PetroInComplete(Player.GetGroup()))
@@ -297,8 +358,17 @@ public class SCR_Table : MonoBehaviour
             }
 
             Ai.PetroComplete();
-            Ai.AddPlayerPoints();
-            UnityEngine.Debug.Log("Suma Puntos");
+            
+            if (Player.isLock == false) 
+            {
+                Ai.AddPlayerPoints();
+                UnityEngine.Debug.Log("Suma Puntos");
+            }
+            else
+            {
+                UnityEngine.Debug.Log("No suma puntos esta bloqueado");
+            }
+            
         }
 
         if (Scr_Rules.PetroInComplete(Ai.GetGroup()))
@@ -313,13 +383,52 @@ public class SCR_Table : MonoBehaviour
         }
     }
 
+
     public bool StartCard(SO_Cards card)
     {
-        //Carta Especiales
+        //Carta Especiales Activas
         switch (card.Code)
         {
+            // Protege Turno Ready
+            case 11:
+                if (currentTurn == Turn.Player)
+                {
+                    Player.isProtect = true;
+                }
+                else
+                {
+                    Ai.isProtect = true; 
+                }
+                return true;
+            // Bloquea Amenaza Esta carta es reactiva hacerla activa xdd Ets falta
+            case 12: 
+            // Saca Ultima Carta del pozo
+            case 13:
+                UnityEngine.Debug.Log("13 Card");
+                if (currentTurn == Turn.Player)
+                {
+                    if (Scr_Rules.FullHand(Player.GetHand()))
+                    {
+                        return false;
+                    }
+                    DrawRandomCard(currentTurn);
+                    return true;
+                }
+                else if (currentTurn == Turn.AI)
+                {
+                    if (Scr_Rules.FullHand(Ai.GetHand()))
+                    {
+                        return false;
+                    }
+                    var lastCard = _holeDeck[_holeDeck.Count - 1];
+                    DrawSpecificCard(Turn.AI, lastCard);
+                    _holeDeck.Remove(lastCard);
+                    return Ai.HoleToHand(lastCard);
+                }
+                return false;
             //Cambia una carta con el contrincante. - Intercambio cultura;
             case 21: //
+                UnityEngine.Debug.Log("21 Card");
                 //Esta bug pero funcionando
                 var playerHand = Player.GetHand();
                 var aiHand = Ai.GetHand();
@@ -357,12 +466,12 @@ public class SCR_Table : MonoBehaviour
 
                 // Jugar
                 return Player.OponentHand(cardAI) && Ai.OponentHand(cardPlayer);
-
             //Roba una carta del deck.
             case 22:
+                UnityEngine.Debug.Log("22 Card");
                 if (currentTurn == Turn.Player)
                 {
-                    if (Scr_Rules.FullHand(Player.GetHand().Count))
+                    if (Scr_Rules.FullHand(Player.GetHand()))
                     {
                         return false;
                     }
@@ -371,7 +480,7 @@ public class SCR_Table : MonoBehaviour
                 }
                 else if (currentTurn == Turn.AI)
                 {
-                    if (Scr_Rules.FullHand(Ai.GetHand().Count))
+                    if (Scr_Rules.FullHand(Ai.GetHand()))
                     {
                         return false;
                     }
@@ -379,28 +488,166 @@ public class SCR_Table : MonoBehaviour
                     return true;
                 }
                 return false;
-            //Roba una carta aleatoria del mazo contrario.
+            //Roba una carta aleatoria del la mano contraria.
             case 23:
+                UnityEngine.Debug.Log("23 Card");
                 if (currentTurn == Turn.Player)
                 {
-                    if (Scr_Rules.FullHand(Player.GetHand().Count))
+                    if (Scr_Rules.FullHand(Player.GetHand()))
                     {
                         return false;
                     }
-                    
-                    return true;
+                    var opoHand = Ai.GetHand();
+                    var opovalidindex = Enumerable.Range(0, opoHand.Count).Where(i =>opoHand[i] != null).ToList();
+                    if (opovalidindex.Count == 0)
+                    { 
+                        return false; 
+                    }
+                    int randhandop = opovalidindex[UnityEngine.Random.Range(0, opovalidindex.Count)];
+                    var opocard = opoHand[randhandop];
+                    opoHand.Remove(opocard);
+                    return Player.OponentHand(opocard);
                 }
                 else if (currentTurn == Turn.AI)
                 {
-                    if (Scr_Rules.FullHand(Ai.GetHand().Count))
+                    if (Scr_Rules.FullHand(Ai.GetHand()))
                     {
                         return false;
                     }
+                    var opoHand = Player.GetHand();
+                    var opovalidindex = Enumerable.Range(0, opoHand.Count).Where(i => opoHand[i] != null).ToList();
+                    if (opovalidindex.Count == 0)
+                    {
+                        return false;
+                    }
+                    int randhandop = opovalidindex[UnityEngine.Random.Range(0, opovalidindex.Count)];
+                    var opocard = opoHand[randhandop];
+                    opoHand.Remove(opocard);
+                    return Player.OponentHand(opocard);
+                }
+                return false;
+            //Descarta una carta aleatoria del armado de petroglifo del contrincante 
+            case 31: 
+                //
+                if (currentTurn == Turn.Player)
+                {
+                    if (Ai.isProtect)
+                    {
+                        return false;
+                    }
+                    var opoHand = Ai.GetGroup();
+                    var opovalidindex = Enumerable.Range(0, opoHand.Count).Where(i => opoHand[i] != null).ToList();
+                    if (opovalidindex.Count == 0)
+                    {
+                        return false;
+                    }
+                    int randhandop = opovalidindex[UnityEngine.Random.Range(0, opovalidindex.Count)];
+                    var opocard = opoHand[randhandop];
+                    opoHand.Remove(opocard);
+                    return Ai.DiscardGroup(opocard, randhandop);
                     
+                }
+                else if (currentTurn == Turn.AI)
+                {
+                    if (Player.isProtect)
+                    {
+                        return false;
+                    }
+                    var opoHand = Player.GetGroup();
+                    var opovalidindex = Enumerable.Range(0, opoHand.Count).Where(i => opoHand[i] != null).ToList();
+                    if (opovalidindex.Count == 0)
+                    {
+                        return false;
+                    }
+                    int randhandop = opovalidindex[UnityEngine.Random.Range(0, opovalidindex.Count)];
+                    var opocard = opoHand[randhandop];
+                    opoHand.Remove(opocard);
+                    return Player.DiscardGroup(opocard, randhandop);
+                }
+                return true;
+            // Pierde una carta de la mano aleatoria 
+            case 32:
+                if (currentTurn == Turn.Player)
+                {
+                    if (Ai.isProtect)
+                    {
+                        return false;
+                    }
+                    var opoHand = Ai.GetHand();
+                    var opovalidindex = Enumerable.Range(0, opoHand.Count).Where(i => opoHand[i] != null).ToList();
+                    if (opovalidindex.Count == 0)
+                    {
+                        return false;
+                    }
+                    int randhandop = opovalidindex[UnityEngine.Random.Range(0, opovalidindex.Count)];
+                    var opocard = opoHand[randhandop];
+                    opoHand.Remove(opocard);
+                    return Ai.DiscardCardHand(opocard, randhandop);
+
+                    //var opoGro = Ai.GetGroup();
+                }
+                else if (currentTurn == Turn.AI)
+                {
+                    if (Player.isProtect)
+                    {
+                        return false;
+                    }
+                    var opoHand = Player.GetHand();
+                    var opovalidindex = Enumerable.Range(0, opoHand.Count).Where(i => opoHand[i] != null).ToList();
+                    if (opovalidindex.Count == 0)
+                    {
+                        return false;
+                    }
+                    int randhandop = opovalidindex[UnityEngine.Random.Range(0, opovalidindex.Count)];
+                    var opocard = opoHand[randhandop];
+                    opoHand.Remove(opocard);
+                    return Player.DiscardCardHand(opocard, randhandop);
+                }
+                return true;
+            // El contrincante pierde un turno
+            case 33:
+                if (currentTurn == Turn.Player)
+                {
+                    if (Ai.isProtect)
+                    {
+                        return false;
+                    }
+                    Ai.lostTurn = true;
+                    return true;
+                    //var opoGro = Ai.GetGroup();
+                }
+                else if (currentTurn == Turn.AI)
+                {
+                    if (Player.isProtect)
+                    {
+                        return false;
+                    }
+                    Player.lostTurn = true;
                     return true;
                 }
                 return false;
-                break;
+            // El contrincante no suma puntos por petroglifo por un turno
+            case 34:
+                if (currentTurn == Turn.Player)
+                {
+                    if (Ai.isProtect)
+                    {
+                        return false;
+                    }
+                    Ai.isLock = true;
+                    return true;
+                    //var opoGro = Ai.GetGroup();
+                }
+                else if (currentTurn == Turn.AI)
+                {
+                    if (Player.isProtect)
+                    {
+                        return false;
+                    }
+                    Ai.isLock = true;
+                    return true;
+                }
+                return false;
             default:
                 break;
         }
@@ -412,9 +659,132 @@ public class SCR_Table : MonoBehaviour
         return _holeDeck;
     }
 
-    private void StealCard()
+    //public float iaDelay = 2.0f; // tiempo de espera en segundos
+
+    void WaitAndPlayAI()
     {
 
+        List<CardMC> _maze = new List<CardMC>();
+        List<CardMC> _hole = new List<CardMC>();
+
+        foreach (var card in DeckCard)
+        {
+            var _card = new CardMC(card.Code, card.name, card.type, card.zone, card.parte);
+            _maze.Add(_card);
+        }
+        foreach (var card in _holeDeck)
+        {
+            var _card = new CardMC(card.Code, card.name, card.type, card.zone, card.parte);
+            _hole.Add(_card);
+        }
+        
+        List<CardMC> handp1 = new List<CardMC>();
+        List<CardMC> handp2 = new List<CardMC>();
+
+        foreach (var card in Player.GetHand())
+        {
+            if(card == null)
+            {
+                continue;
+            }
+            else
+            {
+                var _card = new CardMC(card.Code, card.name, card.type, card.zone, card.parte);
+                handp1.Add(_card);
+            }
+            
+        }
+
+        foreach (var card in Ai.GetHand())
+        {
+            if (card == null)
+            {
+                continue;
+            }
+            else
+            {
+                var _card = new CardMC(card.Code, card.name, card.type, card.zone, card.parte);
+                handp2.Add(_card);
+            }
+
+        }
+
+        List<CardMC> handGroup1 = new List<CardMC>();
+        List<CardMC> handGroup2 = new List<CardMC>();
+
+        foreach (var card in Player.GetGroup())
+        {
+            if (card == null)
+            {
+                continue;
+            }
+            else
+            {
+                var _card = new CardMC(card.Code, card.name, card.type, card.zone, card.parte);
+                handGroup1.Add(_card);
+            }
+
+        }
+
+        foreach (var card in Ai.GetGroup())
+        {
+            if (card == null)
+            {
+                continue;
+            }
+            else
+            {
+                var _card = new CardMC(card.Code, card.name, card.type, card.zone, card.parte);
+                handGroup2.Add(_card);
+            }
+
+        }
+
+        List<CardMC> handSpecial1 = new List<CardMC>();
+        List<CardMC> handSpecial2 = new List<CardMC>();
+
+        foreach (var card in Player.GetSpe())
+        {
+            if (card == null)
+            {
+                continue;
+            }
+            else
+            {
+                var _card = new CardMC(card.Code, card.name, card.type, card.zone, card.parte);
+                handSpecial1.Add(_card);
+            }
+
+        }
+
+        foreach (var card in Ai.GetSpe())
+        {
+            if (card == null)
+            {
+                continue;
+            }
+            else
+            {
+                var _card = new CardMC(card.Code, card.name, card.type, card.zone, card.parte);
+                handSpecial1.Add(_card);
+            }
+
+        }
+
+        PlayerState p1 = new PlayerState(handp1, handGroup1, handSpecial1, Player.GetPoints(), Player.indexProtect, false, Player.lostTurn);
+        PlayerState p2 = new PlayerState(handp2, handGroup2, handSpecial2, Ai.GetPoints(), Ai.indexProtect, false, Ai.lostTurn);
+
+        bool end = currentGameState == GameStateFlow.EndGame ? true : false;
+
+        //yield return new WaitForSeconds(0.1f); // primero esperamos
+
+        GameState state = new GameState(_maze, _hole, Turn.AI, p1, p2, end);
+        int index = MonteCarlo.MonteCarloTS(state, 2, 2).mejorJugada;
+
+        Ai.ClickHand(index);
+
+        //yield return new WaitForSeconds(1f);
+        
     }
 }
 

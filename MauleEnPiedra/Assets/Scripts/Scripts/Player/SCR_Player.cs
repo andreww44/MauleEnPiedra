@@ -16,8 +16,25 @@ public class SCR_Player : MonoBehaviour
     [SerializeField] private CartaManager cardManager;
     [SerializeField] private int Poinst = 0;
     [SerializeField] bool readySetup = false;
+    
     [SerializeField] Turn MyTurn;
 
+    [SerializeField] public bool block { get; set; }
+
+    [SerializeField] private bool _isprtect = false;
+    [SerializeField] private bool _islockt = false;
+    [SerializeField] private bool _islostturn = false;
+
+    [SerializeField] private int _indexprtect;
+    [SerializeField] private int _indexlock;
+    [SerializeField] private int _indexlosttiur;
+    //Rules
+    [SerializeField] public bool isProtect { get; set; }
+    [SerializeField] public int indexProtect { get; set; }
+    [SerializeField] public bool lostTurn { get; set; }
+    [SerializeField] public int indexTurn { get; set; }
+    [SerializeField] public bool isLock { get; set; }
+    [SerializeField] public int indexLock { get; set; }
     public bool IsReadySetup()
     {
         return readySetup;
@@ -25,10 +42,23 @@ public class SCR_Player : MonoBehaviour
 
     void Start()
     {
+        block = false;
+        isProtect = false;
+        indexProtect = 2;
+        indexLock = 1;
+        indexTurn = 1;
+        lostTurn = false;
+        isLock = false;
     }
     void Update()
     {
+        _isprtect = isProtect;
+        _islockt = isLock;
+        _islostturn = lostTurn;
 
+        _indexlosttiur = indexTurn;
+        _indexlock = indexLock;
+        _indexprtect = indexTurn;
     }
 
     public IEnumerator DoMulligan(Turn turn)
@@ -67,6 +97,11 @@ public class SCR_Player : MonoBehaviour
     public List<SO_Cards> GetGroup()
     {
         return GroupCards;
+    }
+
+    public List<SO_Cards> GetSpe()
+    {
+        return SpecialCards;
     }
 
     public void PlayCardToFromHand(int indexcard)
@@ -109,6 +144,7 @@ public class SCR_Player : MonoBehaviour
             }
             
             GroupCards[insertIndex] = card;
+            HandCards[indexcard] = null;
         }
         //Play Special Cards
         else
@@ -139,15 +175,22 @@ public class SCR_Player : MonoBehaviour
             {
                 table.coroutineQueue.Enqueue(cardManager.MoveCard(indexcard, insertIndex, card, CardZone.Hand, CardZone.Special, true, Turn.AI));
             }
-            
+
+
+            HandCards[indexcard] = null;
             SpecialCards[insertIndex] = card;
+            if (table.StartCard(card))
+            {
+                SpecialToD(card);
+            }
+            else
+            {
+                Debug.Log("No se activo la carta " + card.name);
+            }
         }
         
-        HandCards[indexcard] = null;
-        if (table.StartCard(card))
-        {
-            SpecialToD(card);
-        }
+        //HandCards[indexcard] = null;
+        
     }
     public void PlayPetToHand(int indexcard)
     {
@@ -199,7 +242,7 @@ public class SCR_Player : MonoBehaviour
         {
             if(SpecialCards[i] == card)
             {
-                table.coroutineQueue.Enqueue(cardManager.MoveCard(i, 0, card, CardZone.Special, CardZone.HoleMaze, true, MyTurn));
+                table.coroutineQueue.Enqueue(cardManager.MoveCard(i, 0, card, CardZone.Special, CardZone.HoleMaze, false, MyTurn));
                 break;
             }
         }
@@ -208,7 +251,23 @@ public class SCR_Player : MonoBehaviour
 
         
     }
-    
+
+    public bool DiscardGroup(SO_Cards card, int index)
+    {
+        table.coroutineQueue.Enqueue(cardManager.MoveCard(index, 0, card, CardZone.Group, CardZone.HoleMaze, false, MyTurn));
+        table.GetHole().Add(card);
+        GroupCards.Remove(card);
+        return true;
+    }
+
+    public bool DiscardCardHand(SO_Cards card, int index)
+    {
+        table.coroutineQueue.Enqueue(cardManager.MoveCard(index, 0, card, CardZone.Hand, CardZone.HoleMaze, false, MyTurn));
+        table.GetHole().Add(card);
+        HandCards.Remove(card);
+        return true;
+    }
+
     public void PlaySpeToHand(int indexcard)
     {
         if (indexcard < 0 || indexcard >= SpecialCards.Count)
@@ -293,20 +352,74 @@ public class SCR_Player : MonoBehaviour
         return true;
     }
 
+    public bool HoleToHand(SO_Cards card)
+    {
+        //No se mueve la carta
+        if (Scr_Rules.FullHand(HandCards))
+        {
+            return false;
+        }
+
+        if (card != null)
+        {
+            int insertIndex = -1;
+            for (int i = 0; i < HandCards.Count; i++)
+            {
+                if (HandCards[i] == null)
+                {
+                    insertIndex = i;
+                    break;
+                }
+            }
+
+            if (insertIndex == -1)
+            {
+                insertIndex = HandCards.Count;
+                HandCards.Add(null); // Expandimos lista si no hay espacio
+            }
+
+            if (MyTurn == Turn.Player)
+            {
+                table.coroutineQueue.Enqueue(cardManager.MoveCard(0, insertIndex, card, CardZone.HoleMaze, CardZone.Hand, true, Turn.Player));
+            }
+            else
+            {
+                table.coroutineQueue.Enqueue(cardManager.MoveCard(0, insertIndex, card, CardZone.HoleMaze, CardZone.Hand, false, Turn.AI));
+            }
+
+            HandCards[insertIndex] = card;
+
+        }
+        return true;
+    }
+
     //Apretar Cartas
     public void ClickHand(int index){
-        PlayCardToFromHand(index);
+        if(block == false)
+        {
+            PlayCardToFromHand(index);
+        }
+        
     }
 
     public void ClickPet(int index)
     {
-        PlayPetToHand(index);
+        if (block == false)
+        {
+            PlayPetToHand(index);
+
+        }
     }
 
     public void ClickSpecial(int index)
     {
-        PlaySpeToHand(index);
+        if (block == false)
+        {
+            PlaySpeToHand(index);
+        }
     }
+
+
 
     public void PetroComplete()
     {

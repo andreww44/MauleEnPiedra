@@ -84,7 +84,6 @@ public class CartaManager : MonoBehaviour
 
     private Transform[] GetSlotsByZone(CardZone zone, Turn turn)
     {
-        Debug.Log(turn);
         switch (turn)
         {
             case Turn.Player:
